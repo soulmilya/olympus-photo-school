@@ -91,13 +91,18 @@ input[type=range]{width:100%;accent-color:var(--peach)}
 
 /* Final mobile landing layout */
 header{display:none!important}
-#start.hero{height:auto!important;min-height:0!important;margin:14px 0 0;border-radius:27px;padding:56px 21px 24px;justify-content:flex-start}
-#start.hero h1{font-size:clamp(43px,11vw,76px);line-height:.9;margin:15px 0 0;letter-spacing:-.03em}
-#start.hero h1 span{display:block;font-size:.52em;line-height:1.05;letter-spacing:-.015em;margin-top:18px}
-#start.hero .hero-nav{margin-top:22px;padding-bottom:0}
-#start.hero .nav-toggle{display:flex;background:rgba(23,25,20,.34);border-color:rgba(244,225,189,.48);border-radius:16px;padding:13px 17px;font-size:16px}
-#start.hero .nav-menu{background:rgba(21,22,17,.97);backdrop-filter:blur(16px);border-color:rgba(244,225,189,.28)}
-@media(max-width:500px){#start.hero{height:auto!important;min-height:0!important}}
+#start.landing{display:flex;flex-direction:column;justify-content:flex-start;height:auto;min-height:0;margin:14px 0 0;padding:56px 21px 24px;border-radius:27px;background:
+radial-gradient(circle at 70% 18%,rgba(244,225,189,.24),transparent 25%),
+linear-gradient(180deg,rgba(0,0,0,.02),rgba(0,0,0,.9));position:relative;overflow:hidden}
+#start.landing:before{content:"";position:absolute;inset:0;background:
+linear-gradient(130deg,transparent 35%,rgba(237,180,134,.12) 36%,transparent 37%),
+linear-gradient(20deg,transparent 54%,rgba(168,173,120,.13) 55%,transparent 56%);pointer-events:none}
+#start.landing>*{position:relative}
+#start.landing h1{font-size:clamp(43px,11vw,76px);line-height:.9;margin:15px 0 0;letter-spacing:-.03em}
+#start.landing h1 span{display:block;font-size:.52em;line-height:1.05;letter-spacing:-.015em;margin-top:18px}
+#start.landing .hero-nav{margin-top:22px;padding-bottom:0}
+#start.landing .nav-toggle{display:flex;background:rgba(23,25,20,.34);border-color:rgba(244,225,189,.48);border-radius:16px;padding:13px 17px;font-size:16px}
+#start.landing .nav-menu{background:rgba(21,22,17,.97);backdrop-filter:blur(16px);border-color:rgba(244,225,189,.28)}
 
 </style>
 </head>
@@ -105,7 +110,7 @@ header{display:none!important}
 <div class="wrap">
 <header></header>
 
-<section id="start" class="hero">
+<section id="start" class="landing">
 <div class="eyebrow">Полный интерактивный учебник</div>
 <h1>OLYMPUS M MODE<br><span>E-M10 II + 45mm F1.8</span></h1>
 <div class="hero-nav">
