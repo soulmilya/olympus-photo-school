@@ -1,0 +1,10 @@
+{
+  "name": "OLYMPUS PHOTO SCHOOL",
+  "short_name": "Olympus School",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#10110e",
+  "theme_color": "#10110e",
+  "lang": "ru",
+  "description": "Интерактивный справочник и школа фотографии для Olympus OM-D E-M10 Mark II."
+}
