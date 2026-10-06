@@ -20,7 +20,9 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,B
 button,input,select{font:inherit}.wrap{max-width:820px;margin:auto;padding:0 15px 80px}
 header{position:sticky;top:0;z-index:20;background:rgba(16,17,14,.94);backdrop-filter:blur(18px);padding:12px 0 9px;border-bottom:1px solid rgba(255,255,255,.05)}
 .brand{font-size:11px;font-weight:900;letter-spacing:.18em;color:var(--peach)}
-nav{display:flex;gap:7px;overflow:auto;margin-top:8px}nav button,.chips button{white-space:nowrap;background:#171914;color:var(--text);border:1px solid var(--line);border-radius:999px;padding:8px 11px}
+nav{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;align-items:center}
+nav button{flex:0 0 auto;white-space:nowrap}
+@media(max-width:600px){nav{gap:6px}nav button{font-size:14px;padding:10px 13px}}nav button,.chips button{white-space:nowrap;background:#171914;color:var(--text);border:1px solid var(--line);border-radius:999px;padding:8px 11px}
 section{scroll-margin-top:90px;margin:38px 0}.hero{min-height:680px;margin-top:0;padding:25px 21px;display:flex;flex-direction:column;justify-content:flex-end;border-radius:27px;background:
 radial-gradient(circle at 70% 18%,rgba(244,225,189,.24),transparent 25%),
 linear-gradient(180deg,rgba(0,0,0,.02),rgba(0,0,0,.9));position:relative;overflow:hidden}
@@ -64,16 +66,16 @@ input[type=range]{width:100%;accent-color:var(--peach)}
 .quiz-option-static.correct{outline:2px solid #9fbf78}
 .quiz-option-static.wrong{outline:2px solid #c77f70}
 .quiz-feedback{font-weight:700;min-height:1.4em}
+.nav-label{margin-top:10px;font-size:11px;letter-spacing:.16em;font-weight:800;color:#9a9c91}
 </style>
 </head>
 <body>
 <div class="wrap">
 <header>
 <div class="brand">OLYMPUS M MODE · E-M10 II + 45mm F1.8</div>
+<div class="nav-label">БЫСТРАЯ НАВИГАЦИЯ</div>
 <nav>
-<button onclick="go('start')">Старт</button><button onclick="go('camera')">Камера</button><button onclick="go('m')">M</button><button onclick="go('camera-map')">Кнопки</button><button onclick="go('full-menus')">Все меню</button><button onclick="go('presets')">Мои пресеты</button>
-<button onclick="go('triangle')">Экспозиция</button><button onclick="go('focus')">Фокус</button><button onclick="go('scenes')">Сцены</button>
-<button onclick="go('sim')">Тренажёр</button><button onclick="go('menus')">Меню</button><button onclick="go('quiz')">Тест</button>
+<button onclick="go('start')">Старт</button><button onclick="go('m')">M</button><button onclick="go('camera')">Камера</button><button onclick="go('camera-map')">Кнопки</button><button onclick="go('triangle')">Экспозиция</button><button onclick="go('focus')">Фокус</button><button onclick="go('scenes')">Съёмка</button><button onclick="go('sim')">Тренажёр</button><button onclick="go('menus')">Настройки</button><button onclick="go('presets')">Пресеты</button><button onclick="go('practice')">Практика</button><button onclick="go('raw')">RAW</button><button onclick="go('cheat')">Шпаргалка</button><button onclick="go('camera-map')">Камера A→Я</button>
 </nav></header>
 
 <section id="start" class="hero">
@@ -86,21 +88,9 @@ input[type=range]{width:100%;accent-color:var(--peach)}
 <div class="card"><strong>45mm</strong><p class="sub">≈90mm full-frame</p></div>
 <div class="card"><strong>F1.8</strong><p class="sub">светосила</p></div>
 </div>
-<button class="cta" onclick="go('roadmap')">ПОЕХАЛИ →</button>
+<button class="cta" onclick="go('camera')">ПОЕХАЛИ →</button>
 </section>
 
-<section id="roadmap"><div class="eyebrow">00 · Карта обучения</div><h2>Как пройти этот гайд</h2>
-<div class="grid">
-<div class="card"><span class="badge">01</span><h3>Познакомиться</h3><p>камера, объектив, кнопки, экран</p></div>
-<div class="card"><span class="badge">02</span><h3>Понять свет</h3><p>выдержка, f, ISO, EV, гистограмма</p></div>
-<div class="card"><span class="badge">03</span><h3>Освоить M</h3><p>настройка кадра за несколько секунд</p></div>
-<div class="card"><span class="badge">04</span><h3>Научиться видеть</h3><p>композиция, свет, фон, перспектива</p></div>
-<div class="card"><span class="badge">05</span><h3>Снимать</h3><p>улица, портрет, ночь, архитектура</p></div>
-<div class="card"><span class="badge">06</span><h3>Обрабатывать</h3><p>RAW → Lightroom/Camera Raw → Photoshop</p></div>
-<div class="card"><span class="badge">07</span><h3>Практиковаться</h3><p>упражнения, задания и тесты</p></div>
-<div class="card"><span class="badge">08</span><h3>Работать быстро</h3><p>личные пресеты и чек-листы</p></div>
-</div>
-</section>
 
 <section id="camera"><div class="eyebrow">01 · Камера</div><h2>Что у тебя в руках</h2>
 <p>В этом гайде мы рассматриваем именно <b>OM-D E-M10 Mark II</b>. У неё 16,05 млн эффективных пикселей, Micro Four Thirds, 5-осевая стабилизация, EVF 2,36 млн точек, диапазон ручного ISO LOW/200–25600 и механическая выдержка 60–1/4000 с. Есть Bulb/Time до 30 минут, Live Bulb/Live Time и Live Composite. </p>
@@ -183,15 +173,6 @@ input[type=range]{width:100%;accent-color:var(--peach)}
 <p>Шум зависит не только от ISO, но и от того, насколько сильно ты вытягиваешь тени. Хорошо экспонированный ISO 3200 часто выглядит приятнее, чем сильно недоэкспонированный ISO 800.</p>
 </section>
 
-<section id="meter"><div class="eyebrow">07 · Замер света</div><h2>Камера не знает, что для тебя важно</h2>
-<div class="grid">
-<div class="card"><strong>ESP</strong><p>универсальный многозонный замер. База для улицы.</p></div>
-<div class="card"><strong>Center</strong><p>больше веса центру кадра.</p></div>
-<div class="card"><strong>Spot</strong><p>замер маленькой области. Полезен для контрового света.</p></div>
-<div class="card"><strong>Highlight/Shadow</strong><p>специальные режимы, когда важна защита светов или теней.</p></div>
-</div>
-<p>В M шкала экспозиции не «делает кадр правильно». Она лишь сообщает, что камера измерила. Важнее понять, <b>что должно быть правильно экспонировано</b>.</p>
-</section>
 
 <section id="focus"><div class="eyebrow">08 · Автофокус</div><h2>Фокус: S-AF, C-AF, MF и tracking</h2>
 <table>
@@ -255,16 +236,6 @@ input[type=range]{width:100%;accent-color:var(--peach)}
 </div><div id="sceneCard" class="card"></div>
 </section>
 
-<section id="composition"><div class="eyebrow">15 · Композиция</div><h2>Камера не исправит скучную сцену</h2>
-<div class="grid">
-<div class="card"><strong>Линии</strong><p>ищи дороги, стены, тени, перила.</p></div>
-<div class="card"><strong>Слои</strong><p>передний план → герой → фон.</p></div>
-<div class="card"><strong>Негативное пространство</strong><p>оставляй воздух вокруг героя.</p></div>
-<div class="card"><strong>Кадрирование</strong><p>не режь суставы случайно.</p></div>
-<div class="card"><strong>Симметрия</strong><p>архитектура любит точность.</p></div>
-<div class="card"><strong>Детали</strong><p>45mm особенно хорош для маленьких историй.</p></div>
-</div>
-</section>
 
 <section id="portrait"><div class="eyebrow">16 · Портрет</div><h2>Твой 45mm здесь раскрывается</h2>
 <div class="card"><h3>Дневной портрет</h3><p><b>M · 1/250 · f/1.8–2.2 · ISO 200–400 · S-AF · Face/Eye Priority</b></p><p>Поставь человека в открытой тени или мягком боковом свете. Оставь расстояние между человеком и фоном. Наведи фокус на ближайший глаз.</p></div>
@@ -392,10 +363,6 @@ input[type=range]{width:100%;accent-color:var(--peach)}
 <details class="task"><summary>30 · Собери свой пресет «Ночь».</summary><p>После съёмки запиши: выдержка / f / ISO / свет / что получилось / что изменишь в следующий раз.</p><label><input type="checkbox" class="task-check"> Выполнено</label></details></div>
 </section>
 
-<section id="quiz"><div class="eyebrow">29 · Проверка</div><h2>Ты уже фотограф?</h2>
-<div class="progress"><i id="qProgress"></i></div>
-<div id="quizBox" class="card" style="margin-top:10px"><div class="quiz-static"><div class="quiz-card-static"><div class="badge">ВОПРОС 1/8</div><h3>На портрете человек движется, кадр смазывается. Что менять первым?</h3><button class="quiz-option-static" data-correct="false">ISO</button><button class="quiz-option-static" data-correct="true">Выдержку</button><button class="quiz-option-static" data-correct="false">WB</button><button class="quiz-option-static" data-correct="false">Picture Mode</button><p class="quiz-feedback" aria-live="polite"></p></div><div class="quiz-card-static"><div class="badge">ВОПРОС 2/8</div><h3>Нужен максимально мягкий фон. Что обычно помогает?</h3><button class="quiz-option-static" data-correct="true">f/1.8</button><button class="quiz-option-static" data-correct="false">f/11</button><button class="quiz-option-static" data-correct="false">ISO 100</button><button class="quiz-option-static" data-correct="false">1/4000</button><p class="quiz-feedback" aria-live="polite"></p></div><div class="quiz-card-static"><div class="badge">ВОПРОС 3/8</div><h3>Ночью человек смазывается. Что делать?</h3><button class="quiz-option-static" data-correct="false">Ещё снизить выдержку</button><button class="quiz-option-static" data-correct="true">Увеличить выдержку и при необходимости поднять ISO</button><button class="quiz-option-static" data-correct="false">Снизить ISO</button><button class="quiz-option-static" data-correct="false">Изменить WB</button><p class="quiz-feedback" aria-live="polite"></p></div><div class="quiz-card-static"><div class="badge">ВОПРОС 4/8</div><h3>Что делает стабилизация?</h3><button class="quiz-option-static" data-correct="false">Замораживает человека</button><button class="quiz-option-static" data-correct="true">Компенсирует дрожание камеры</button><button class="quiz-option-static" data-correct="false">Уменьшает ISO</button><button class="quiz-option-static" data-correct="false">Увеличивает диафрагму</button><p class="quiz-feedback" aria-live="polite"></p></div><div class="quiz-card-static"><div class="badge">ВОПРОС 5/8</div><h3>Что означает ISO 3200 по сравнению с ISO 800?</h3><button class="quiz-option-static" data-correct="true">В 4 раза больше чувствительности/усиления</button><button class="quiz-option-static" data-correct="false">В 4 раза меньше</button><button class="quiz-option-static" data-correct="false">Изменение фокусного</button><button class="quiz-option-static" data-correct="false">Изменение WB</button><p class="quiz-feedback" aria-live="polite"></p></div><div class="quiz-card-static"><div class="badge">ВОПРОС 6/8</div><h3>Какой режим AF базовый для спокойного портрета?</h3><button class="quiz-option-static" data-correct="true">S-AF</button><button class="quiz-option-static" data-correct="false">C-AF</button><button class="quiz-option-static" data-correct="false">C-AF+TR всегда</button><button class="quiz-option-static" data-correct="false">Movie AF</button><p class="quiz-feedback" aria-live="polite"></p></div><div class="quiz-card-static"><div class="badge">ВОПРОС 7/8</div><h3>45mm на Micro Four Thirds по углу зрения примерно соответствует чему на 35mm?</h3><button class="quiz-option-static" data-correct="false">24mm</button><button class="quiz-option-static" data-correct="false">35mm</button><button class="quiz-option-static" data-correct="false">50mm</button><button class="quiz-option-static" data-correct="true">90mm</button><p class="quiz-feedback" aria-live="polite"></p></div><div class="quiz-card-static"><div class="badge">ВОПРОС 8/8</div><h3>Для статичного ночного города со штативом что логично?</h3><button class="quiz-option-static" data-correct="false">1/4000 ISO 6400</button><button class="quiz-option-static" data-correct="true">1–10s ISO 200–800</button><button class="quiz-option-static" data-correct="false">1/1000 ISO 3200</button><button class="quiz-option-static" data-correct="false">1/250 ISO 100</button><p class="quiz-feedback" aria-live="polite"></p></div></div></div>
-</section>
 
 <section id="cheat"><div class="eyebrow">30 · Карманная шпаргалка</div><h2>Сохрани в голове</h2>
 <div class="grid">
