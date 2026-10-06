@@ -1,0 +1,845 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#10110e">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Olympus Photo School">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<title>OLYMPUS E-M10 II · Ultimate Photo School</title>
+<style>
+:root{
+--bg:#10110e;--card:#191b16;--card2:#20231c;--cream:#f4e1bd;--peach:#edb486;
+--olive:#a8ad78;--blue:#8297a8;--text:#f5f3ec;--muted:#aaa99f;--line:#383b30;
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.5}
+button,input,select{font:inherit}.wrap{max-width:820px;margin:auto;padding:0 15px 80px}
+header{position:sticky;top:0;z-index:20;background:rgba(16,17,14,.94);backdrop-filter:blur(18px);padding:12px 0 9px;border-bottom:1px solid rgba(255,255,255,.05)}
+.brand{font-size:11px;font-weight:900;letter-spacing:.18em;color:var(--peach)}
+nav{display:flex;gap:7px;overflow:auto;margin-top:8px}nav button,.chips button{white-space:nowrap;background:#171914;color:var(--text);border:1px solid var(--line);border-radius:999px;padding:8px 11px}
+section{scroll-margin-top:90px;margin:38px 0}.hero{min-height:680px;margin-top:0;padding:25px 21px;display:flex;flex-direction:column;justify-content:flex-end;border-radius:27px;background:
+radial-gradient(circle at 70% 18%,rgba(244,225,189,.24),transparent 25%),
+linear-gradient(180deg,rgba(0,0,0,.02),rgba(0,0,0,.9));position:relative;overflow:hidden}
+.hero:before{content:"";position:absolute;inset:0;background:
+linear-gradient(130deg,transparent 35%,rgba(237,180,134,.12) 36%,transparent 37%),
+linear-gradient(20deg,transparent 54%,rgba(168,173,120,.13) 55%,transparent 56%);
+pointer-events:none}
+.hero>*{position:relative}.eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--peach);font-weight:900}
+h1{font:700 clamp(42px,12vw,76px)/.88 Georgia,serif;margin:14px 0}h2{font:700 32px/1.02 Georgia,serif;margin:10px 0 14px}h3{margin:5px 0 8px}
+p{color:#d2d1c9}.muted{color:var(--muted)}.lead{font-size:17px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.card{background:var(--card);border:1px solid var(--line);border-radius:19px;padding:15px}.card strong.big{font-size:27px}
+.icon{font-size:25px}.badge{display:inline-block;border:1px solid var(--line);padding:4px 8px;border-radius:99px;color:var(--olive);font-size:11px;font-weight:800}
+.cta{width:100%;border:0;border-radius:17px;background:var(--cream);color:#171811;font-weight:900;padding:14px 16px;margin-top:12px}
+.smallbtn{border:1px solid var(--line);background:transparent;color:var(--text);border-radius:12px;padding:9px 12px}
+table{width:100%;border-collapse:collapse;font-size:14px}th,td{padding:10px 7px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th{color:var(--olive)}
+details{background:var(--card);border:1px solid var(--line);border-radius:16px;margin:8px 0;padding:13px 14px}summary{cursor:pointer;font-weight:850}
+.ok,.warn,.tip{padding:12px 14px;border-radius:11px;margin:10px 0}.ok{background:#182018;border-left:3px solid var(--olive)}.warn{background:#251d17;border-left:3px solid var(--peach)}.tip{background:#171e24;border-left:3px solid var(--blue)}
+.chips{display:flex;gap:7px;overflow:auto;margin:10px 0}.chips button.active{background:var(--cream);color:#171811}
+.kpi{font-size:28px;font-weight:900}.sub{font-size:13px;color:var(--muted)}
+.slider{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px;margin:9px 0}.value{font-size:25px;font-weight:900}
+input[type=range]{width:100%;accent-color:var(--peach)}
+.scene{height:220px;border-radius:17px;overflow:hidden;position:relative;background:linear-gradient(#66798d 0 48%,#d0bc9c 49% 53%,#3f403a 54%)}
+.scene .sun{position:absolute;width:52px;height:52px;border-radius:50%;background:#ffe0a0;top:25px;right:18%;filter:blur(var(--sunblur,1px))}
+.scene .human{position:absolute;left:50%;bottom:18px;width:34px;height:100px;transform:translateX(-50%);background:#23241f;border-radius:17px 17px 7px 7px;filter:blur(var(--motion,0px))}
+.scene .light{position:absolute;width:180px;height:70px;left:-20px;bottom:20px;background:rgba(244,210,151,.18);filter:blur(12px);transform:rotate(-8deg)}
+.scene:after{content:"";position:absolute;inset:0;background:rgba(0,0,0,var(--dark,0))}
+.result{background:var(--card2);border:1px solid var(--line);border-radius:18px;padding:15px;margin:9px 0}
+.meter{height:12px;border-radius:99px;background:linear-gradient(90deg,#25271f,#7d8561,#f1d5aa,#fff);position:relative;margin:15px 0}.meter i{position:absolute;top:-5px;width:3px;height:22px;background:#fff;left:50%;box-shadow:0 0 0 2px #111}
+.quiz-option{display:block;width:100%;text-align:left;margin:7px 0;padding:12px;border:1px solid var(--line);border-radius:13px;background:var(--card);color:var(--text)}
+.quiz-option.correct{border-color:var(--olive);background:#1c281c}.quiz-option.wrong{border-color:var(--peach);background:#2a1d17}
+.progress{height:6px;background:#25271f;border-radius:99px;overflow:hidden}.progress i{display:block;height:100%;background:var(--peach);width:0}
+.footer{text-align:center;color:var(--muted);font-size:12px;margin-top:60px}
+@media(max-width:500px){.grid{grid-template-columns:1fr 1fr}.hero{min-height:620px}.card{padding:13px}h2{font-size:29px}}
+
+.task{margin:10px 0;padding:14px 16px;border:1px solid var(--line,#30322b);border-radius:16px;background:rgba(255,255,255,.025)}
+.task summary{cursor:pointer;font-weight:700;line-height:1.4}
+.task-check{width:18px;height:18px;vertical-align:middle;margin-right:7px}
+.quiz-static{display:grid;gap:14px}
+.quiz-card-static{padding:18px;border:1px solid var(--line,#30322b);border-radius:18px;background:rgba(255,255,255,.025)}
+.quiz-option-static{display:block;width:100%;text-align:left;margin:8px 0;padding:12px 14px;border:1px solid var(--line,#30322b);border-radius:12px;background:transparent;color:inherit;cursor:pointer}
+.quiz-option-static.correct{outline:2px solid #9fbf78}
+.quiz-option-static.wrong{outline:2px solid #c77f70}
+.quiz-feedback{font-weight:700;min-height:1.4em}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<div class="brand">OLYMPUS M MODE · E-M10 II + 45mm F1.8</div>
+<nav>
+<button onclick="go('start')">Старт</button><button onclick="go('camera')">Камера</button><button onclick="go('m')">M</button><button onclick="go('camera-map')">Кнопки</button><button onclick="go('full-menus')">Все меню</button><button onclick="go('presets')">Мои пресеты</button>
+<button onclick="go('triangle')">Экспозиция</button><button onclick="go('focus')">Фокус</button><button onclick="go('scenes')">Сцены</button>
+<button onclick="go('sim')">Тренажёр</button><button onclick="go('menus')">Меню</button><button onclick="go('quiz')">Тест</button>
+</nav></header>
+
+<section id="start" class="hero">
+<div class="eyebrow">Полный интерактивный учебник</div>
+<h1>OLYMPUS<br>M MODE</h1>
+<p class="lead"><b>OM-D E-M10 Mark II + M.Zuiko Digital 45mm F1.8</b><br>От «я вообще не понимаю эти колёсики» до осознанной ручной съёмки.</p>
+<div class="grid">
+<div class="card"><strong>16.05 MP</strong><p class="sub">Live MOS Micro 4/3</p></div>
+<div class="card"><strong>5 AXIS</strong><p class="sub">стабилизация</p></div>
+<div class="card"><strong>45mm</strong><p class="sub">≈90mm full-frame</p></div>
+<div class="card"><strong>F1.8</strong><p class="sub">светосила</p></div>
+</div>
+<button class="cta" onclick="go('roadmap')">ПОЕХАЛИ →</button>
+</section>
+
+<section id="roadmap"><div class="eyebrow">00 · Карта обучения</div><h2>Как пройти этот гайд</h2>
+<div class="grid">
+<div class="card"><span class="badge">01</span><h3>Познакомиться</h3><p>камера, объектив, кнопки, экран</p></div>
+<div class="card"><span class="badge">02</span><h3>Понять свет</h3><p>выдержка, f, ISO, EV, гистограмма</p></div>
+<div class="card"><span class="badge">03</span><h3>Освоить M</h3><p>настройка кадра за несколько секунд</p></div>
+<div class="card"><span class="badge">04</span><h3>Научиться видеть</h3><p>композиция, свет, фон, перспектива</p></div>
+<div class="card"><span class="badge">05</span><h3>Снимать</h3><p>улица, портрет, ночь, архитектура</p></div>
+<div class="card"><span class="badge">06</span><h3>Обрабатывать</h3><p>RAW → Lightroom/Camera Raw → Photoshop</p></div>
+<div class="card"><span class="badge">07</span><h3>Практиковаться</h3><p>упражнения, задания и тесты</p></div>
+<div class="card"><span class="badge">08</span><h3>Работать быстро</h3><p>личные пресеты и чек-листы</p></div>
+</div>
+</section>
+
+<section id="camera"><div class="eyebrow">01 · Камера</div><h2>Что у тебя в руках</h2>
+<p>В этом гайде мы рассматриваем именно <b>OM-D E-M10 Mark II</b>. У неё 16,05 млн эффективных пикселей, Micro Four Thirds, 5-осевая стабилизация, EVF 2,36 млн точек, диапазон ручного ISO LOW/200–25600 и механическая выдержка 60–1/4000 с. Есть Bulb/Time до 30 минут, Live Bulb/Live Time и Live Composite. </p>
+<table>
+<tr><th>Часть</th><th>Что делает</th></tr>
+<tr><td>Mode Dial</td><td>P / A / S / M, Auto, ART, SCN, видео</td></tr>
+<tr><td>Передний диск</td><td>один из главных регуляторов экспозиции</td></tr>
+<tr><td>Задний диск</td><td>второй регулятор; также навигация/параметры</td></tr>
+<tr><td>Q</td><td>быстрое управление параметрами через Control Panel</td></tr>
+<tr><td>INFO</td><td>переключает виды отображения</td></tr>
+<tr><td>MENU</td><td>полная настройка камеры</td></tr>
+<tr><td>Fn/кнопки</td><td>можно переназначить через Button Function</td></tr>
+<tr><td>EVF</td><td>видоискатель с предварительным просмотром экспозиции</td></tr>
+</table>
+<div class="tip">Проверь свою камеру перед обучением: некоторые функции могут выглядеть иначе из-за назначений кнопок и версии прошивки.</div>
+</section>
+
+<section id="lens"><div class="eyebrow">02 · Объектив</div><h2>M.Zuiko 45mm F1.8</h2>
+<div class="grid">
+<div class="card"><span class="kpi">45mm</span><p>реальное фокусное</p></div>
+<div class="card"><span class="kpi">90mm</span><p>эквивалент по углу зрения</p></div>
+<div class="card"><span class="kpi">f/1.8</span><p>максимальная диафрагма</p></div>
+<div class="card"><span class="kpi">0.50m</span><p>минимальная дистанция фокусировки</p></div>
+<div class="card"><span class="kpi">116g</span><p>вес</p></div>
+<div class="card"><span class="kpi">37mm</span><p>диаметр фильтра</p></div>
+</div>
+<p>Это фикс-объектив без зума. Он особенно хорош для портретов, деталей, спокойной уличной фотографии и вечерних сцен. Узкий угол 27° означает: чтобы расширить кадр, тебе физически придётся отходить назад. Для маленьких комнат это может быть тесно.</p>
+<div class="ok"><b>Твоя главная суперсила:</b> f/1.8 + 90mm-equivalent perspective. Именно поэтому объектив отлично подходит для портрета и атмосферных деталей.</div>
+</section>
+
+
+<section id="triangle"><div class="eyebrow">03 · Экспозиция</div><h2>Треугольник, который решает всё</h2>
+<div class="grid">
+<div class="card"><strong class="big">1/500</strong><h3>Выдержка</h3><p>замораживает/смазывает движение</p></div>
+<div class="card"><strong class="big">f/2</strong><h3>Диафрагма</h3><p>свет + глубина резкости</p></div>
+<div class="card"><strong class="big">ISO 400</strong><h3>ISO</h3><p>усиливает сигнал, добавляет шум</p></div>
+<div class="card"><strong class="big">EV</strong><h3>Экспозиция</h3><p>итоговый баланс яркости</p></div>
+</div>
+<div class="meter"><i id="meterPin"></i></div>
+<p><b>Один стоп:</b> примерно вдвое больше или меньше света. 1/250 → 1/125 = +1 стоп света. f/2.8 → f/4 = −1 стоп. ISO 200 → 400 = +1 стоп.</p>
+</section>
+
+<section id="shutter"><div class="eyebrow">04 · Выдержка</div><h2>Время, за которое создаётся кадр</h2>
+<table>
+<tr><th>Выдержка</th><th>Практика</th></tr>
+<tr><td>1/4000–1/2000</td><td>яркий день, очень быстрое движение</td></tr>
+<tr><td>1/1000</td><td>спорт, бег, быстрые жесты</td></tr>
+<tr><td>1/500</td><td>улица, ходьба, активный человек</td></tr>
+<tr><td>1/250</td><td>базовый портрет</td></tr>
+<tr><td>1/125</td><td>спокойный портрет вечером</td></tr>
+<tr><td>1/60</td><td>медленно; человек уже может смазаться</td></tr>
+<tr><td>1/30–1/15</td><td>статичная сцена, нужна техника удержания</td></tr>
+<tr><td>1–30s</td><td>штатив/опора, ночные сцены</td></tr>
+</table>
+<details><summary>«Правило 1/фокусное» всё ещё работает?</summary><p>Это лишь стартовая подсказка, а не закон. На Micro Four Thirds 45mm часто комфортнее начинать примерно с 1/100–1/125 с для неподвижного человека, а затем учитывать стабилизацию, собственную технику и движение объекта.</p></details>
+<details><summary>Почему стабилизация не спасает бегущего человека?</summary><p>Стабилизация компенсирует движение камеры. Человек движется независимо от камеры, поэтому его собственный смаз останется.</p></details>
+</section>
+
+<section id="aperture"><div class="eyebrow">05 · Диафрагма</div><h2>Почему f/1.8 не всегда лучше?</h2>
+<table>
+<tr><th>f/1.8</th><td>максимум света, очень малая глубина резкости, мягкий фон</td></tr>
+<tr><th>f/2–2.2</th><td>портретный рабочий диапазон</td></tr>
+<tr><th>f/2.8</th><td>больше запаса по резкости лица</td></tr>
+<tr><th>f/4</th><td>портрет с окружением</td></tr>
+<tr><th>f/5.6–8</th><td>архитектура, группа, больше глубины</td></tr>
+<tr><th>f/11–22</th><td>сильное уменьшение света; не используй автоматически</td></tr>
+</table>
+<div class="warn">На f/1.8 глаза могут быть резкими, а уши уже заметно уходить из глубины резкости. Поэтому для крупного портрета не превращай f/1.8 в религию.</div>
+</section>
+
+<section id="iso"><div class="eyebrow">06 · ISO</div><h2>Сколько шума допустимо?</h2>
+<div class="grid">
+<div class="card"><strong>ISO 200</strong><p>идеальный дневной старт</p></div>
+<div class="card"><strong>400–800</strong><p>облачно, тень, интерьер</p></div>
+<div class="card"><strong>1600</strong><p>вечер и город</p></div>
+<div class="card"><strong>3200</strong><p>ночной портрет</p></div>
+<div class="card"><strong>6400+</strong><p>крайний рабочий вариант, проверяй RAW</p></div>
+<div class="card"><strong>25600</strong><p>экстремальная чувствительность</p></div>
+</div>
+<p>Шум зависит не только от ISO, но и от того, насколько сильно ты вытягиваешь тени. Хорошо экспонированный ISO 3200 часто выглядит приятнее, чем сильно недоэкспонированный ISO 800.</p>
+</section>
+
+<section id="meter"><div class="eyebrow">07 · Замер света</div><h2>Камера не знает, что для тебя важно</h2>
+<div class="grid">
+<div class="card"><strong>ESP</strong><p>универсальный многозонный замер. База для улицы.</p></div>
+<div class="card"><strong>Center</strong><p>больше веса центру кадра.</p></div>
+<div class="card"><strong>Spot</strong><p>замер маленькой области. Полезен для контрового света.</p></div>
+<div class="card"><strong>Highlight/Shadow</strong><p>специальные режимы, когда важна защита светов или теней.</p></div>
+</div>
+<p>В M шкала экспозиции не «делает кадр правильно». Она лишь сообщает, что камера измерила. Важнее понять, <b>что должно быть правильно экспонировано</b>.</p>
+</section>
+
+<section id="focus"><div class="eyebrow">08 · Автофокус</div><h2>Фокус: S-AF, C-AF, MF и tracking</h2>
+<table>
+<tr><th>Режим</th><th>Когда использовать</th></tr>
+<tr><td>S-AF</td><td>портрет, улица, архитектура, спокойный объект</td></tr>
+<tr><td>C-AF</td><td>движущийся человек, велосипед, животное</td></tr>
+<tr><td>MF</td><td>ночь, штатив, сложный контраст, точная постановка</td></tr>
+<tr><td>S-AF+MF</td><td>сначала AF, затем докрутить кольцом</td></tr>
+<tr><td>C-AF+TR</td><td>попытка отслеживать выбранный объект</td></tr>
+</table>
+<p>Официальный manual описывает именно эти режимы и отмечает, что S-AF подходит для неподвижных/мало движущихся объектов, C-AF продолжает перефокусировку, а S-AF+MF позволяет после AF корректировать фокус кольцом. </p>
+<details><summary>Face Priority / Eye Priority</summary><p>Для портрета полезно включать приоритет лица/глаз, если камера уверенно распознаёт человека. Но проверяй результат увеличением: автоматический глаз всё равно не отменяет контроль фотографа.</p></details>
+<details><summary>AF Targeting Pad</summary><p>В E-M10 II есть возможность позиционировать AF-цель касанием области справа на экране при съёмке через видоискатель. Это можно включить в Custom Menu → AF/MF.</p></details>
+</section>
+
+<section id="manualfocus"><div class="eyebrow">09 · Ручной фокус</div><h2>MF без паники</h2>
+<p>Для ночной фотографии поставь камеру на устойчивую опору, увеличь изображение на ярком объекте/фонаре и наведи резкость вручную. Для портрета с f/1.8 сначала наведи AF, затем при необходимости слегка докрути.</p>
+<div class="grid">
+<div class="card"><strong>Magnify</strong><p>увеличение зоны фокуса</p></div>
+<div class="card"><strong>Peaking</strong><p>подсветка контуров резкости</p></div>
+<div class="card"><strong>MF Assist</strong><p>помощь при ручной фокусировке</p></div>
+<div class="card"><strong>∞</strong><p>для далёких ночных объектов, но проверяй фактическую резкость</p></div>
+</div>
+</section>
+
+<section id="stabilization"><div class="eyebrow">10 · Стабилизация</div><h2>5 осей, но не волшебная палочка</h2>
+<p>У E-M10 II заявлена 5-осевая стабилизация с компенсацией нескольких типов движения. citeturn0search0</p>
+<table><tr><th>Ситуация</th><th>Что делать</th></tr>
+<tr><td>День + люди</td><td>стабилизация ON, выдержка 1/250+</td></tr>
+<tr><td>Ночь + человек</td><td>стабилизация ON, выдержка не слишком медленная</td></tr>
+<tr><td>Ночь + город</td><td>опора/штатив, длинная выдержка</td></tr>
+<tr><td>Штатив + Anti-Shock</td><td>уменьшает вибрацию от срабатывания</td></tr></table>
+</section>
+
+<section id="whitebalance"><div class="eyebrow">11 · Баланс белого</div><h2>Почему белая стена иногда синяя?</h2>
+<p>Разный свет имеет разную цветовую температуру. Auto WB удобен, но при серии кадров может менять цвет. Для стабильной серии используй фиксированный WB или снимай RAW.</p>
+<table><tr><th>WB</th><th>Сценарий</th></tr><tr><td>Auto</td><td>универсально</td></tr><tr><td>Daylight</td><td>солнце</td></tr><tr><td>Cloudy</td><td>облачно, чуть теплее</td></tr><tr><td>Tungsten</td><td>тёплые лампы</td></tr><tr><td>Fluorescent</td><td>часть искусственного света</td></tr></table>
+</section>
+
+<section id="picturemode"><div class="eyebrow">12 · Picture Mode</div><h2>JPEG vs RAW</h2>
+<p>Picture Mode влияет на JPEG и предпросмотр. Если снимаешь RAW, ты получаешь гораздо больше свободы в обработке. Для твоего workflow я бы использовал <b>Natural</b> как спокойную базу.</p>
+<div class="grid">
+<div class="card"><strong>Natural</strong><p>нейтральный универсальный старт</p></div>
+<div class="card"><strong>Vivid</strong><p>больше визуального эффекта JPEG</p></div>
+<div class="card"><strong>Portrait</strong><p>ориентирован на портретную цветопередачу</p></div>
+<div class="card"><strong>Monotone</strong><p>ч/б и фильтры</p></div>
+</div>
+</section>
+
+<section id="quality"><div class="eyebrow">13 · Качество файла</div><h2>Как снимать для портфолио</h2>
+<table><tr><th>Формат</th><th>Когда</th></tr><tr><td>RAW</td><td>портфолио, ретушь, цветокоррекция</td></tr><tr><td>RAW+JPEG</td><td>обучение, быстрый просмотр, запасной JPEG</td></tr><tr><td>JPEG</td><td>быстро поделиться, когда обработка не нужна</td></tr></table>
+<div class="ok"><b>Для твоих фотографий:</b> RAW. Ты сможешь спокойно работать с цветом, светом, кожей, небом и деталями в Photoshop.</div>
+</section>
+
+<section id="scenes"><div class="eyebrow">14 · Съёмочные сценарии</div><h2>Готовые стартовые настройки</h2>
+<div class="chips">
+<button class="active" onclick="scenePreset('street',this)">Улица</button><button onclick="scenePreset('portrait',this)">Портрет</button>
+<button onclick="scenePreset('golden',this)">Золотой час</button><button onclick="scenePreset('blue',this)">Синий час</button>
+<button onclick="scenePreset('night',this)">Ночь</button><button onclick="scenePreset('architecture',this)">Архитектура</button>
+<button onclick="scenePreset('motion',this)">Движение</button><button onclick="scenePreset('indoors',this)">Интерьер</button>
+</div><div id="sceneCard" class="card"></div>
+</section>
+
+<section id="composition"><div class="eyebrow">15 · Композиция</div><h2>Камера не исправит скучную сцену</h2>
+<div class="grid">
+<div class="card"><strong>Линии</strong><p>ищи дороги, стены, тени, перила.</p></div>
+<div class="card"><strong>Слои</strong><p>передний план → герой → фон.</p></div>
+<div class="card"><strong>Негативное пространство</strong><p>оставляй воздух вокруг героя.</p></div>
+<div class="card"><strong>Кадрирование</strong><p>не режь суставы случайно.</p></div>
+<div class="card"><strong>Симметрия</strong><p>архитектура любит точность.</p></div>
+<div class="card"><strong>Детали</strong><p>45mm особенно хорош для маленьких историй.</p></div>
+</div>
+</section>
+
+<section id="portrait"><div class="eyebrow">16 · Портрет</div><h2>Твой 45mm здесь раскрывается</h2>
+<div class="card"><h3>Дневной портрет</h3><p><b>M · 1/250 · f/1.8–2.2 · ISO 200–400 · S-AF · Face/Eye Priority</b></p><p>Поставь человека в открытой тени или мягком боковом свете. Оставь расстояние между человеком и фоном. Наведи фокус на ближайший глаз.</p></div>
+<div class="card"><h3>Портрет вечером</h3><p><b>M · 1/160–1/250 · f/1.8 · ISO 800–3200</b></p><p>Ищи фонари и окна позади героя. ISO повышай смело, если это сохраняет резкость.</p></div>
+<div class="warn">При f/1.8 не снимай крупный портрет наугад. Сделай серию: небольшой поворот лица может изменить, какой глаз окажется в зоне резкости.</div>
+</section>
+
+<section id="street"><div class="eyebrow">17 · Улица</div><h2>Незаметная уличная съёмка</h2>
+<p>45mm/90mm-equivalent позволяет снимать детали и людей с некоторой дистанции, не лезя камерой в лицо. Это не универсальный street-объектив для широких сцен, зато он хорош для фрагментов города.</p>
+<div class="card"><b>Старт:</b> M · 1/500 · f/2.8 · ISO 200–800 · S-AF · Auto WB.</div>
+<details><summary>Если солнце резко меняется</summary><p>Не пытайся сохранять одну комбинацию любой ценой. Ускорь/замедли выдержку и следи за светами.</p></details>
+</section>
+
+<section id="night"><div class="eyebrow">18 · Ночь</div><h2>Ночной режим фотографа</h2>
+<table><tr><th>Сцена</th><th>Старт</th></tr><tr><td>человек</td><td>1/125–1/250 · f/1.8 · ISO 1600–6400+</td></tr><tr><td>город с рук</td><td>1/60–1/125 · f/1.8–2.8 · ISO 800–3200</td></tr><tr><td>статичный город</td><td>1–10s · f/2.8–5.6 · ISO 200–800</td></tr></table>
+<p>Для статичной сцены используй опору или штатив. Включай Anti-Shock, если он помогает конкретной сцене. Для очень длинных выдержек используй Bulb/Time/Live Composite.</p>
+</section>
+
+<section id="architecture"><div class="eyebrow">19 · Архитектура</div><h2>Резкость и геометрия</h2>
+<div class="card"><b>Старт:</b> M · 1/125–1/500 · f/5.6–8 · ISO 200 · S-AF/MF.</div>
+<p>45mm тесный для больших зданий, но отличный для деталей фасада, окон, текстур, геометрии и архитектурных фрагментов. Следи за вертикалями и перспективой.</p>
+</section>
+
+<section id="motion"><div class="eyebrow">20 · Движение</div><h2>Заморозить человека</h2>
+<div class="card"><b>Старт:</b> M · 1/1000 · f/2–2.8 · Auto ISO или ISO 400–1600 · C-AF.</div>
+<p>Снимай сериями. Следи за направлением движения. Если объект движется к тебе, C-AF и короткая выдержка становятся особенно важными.</p>
+</section>
+
+<section id="sim"><div class="eyebrow">21 · Тренажёр №1</div><h2>Крути настройки</h2>
+<p>Модель упрощённая, но логика реальной экспозиции сохранена: быстрее выдержка → меньше света и меньше смаза; открытая диафрагма → больше света и меньше ГРИП; выше ISO → ярче, но шумнее.</p>
+<div class="scene" id="simScene"><div class="sun"></div><div class="human"></div><div class="light"></div></div>
+<div class="result"><div class="value" id="simRead"></div><p id="simExplain"></p></div>
+<div class="slider"><b>Выдержка</b><div class="value" id="sv"></div><input id="sh" type="range" min="0" max="11" value="5"></div>
+<div class="slider"><b>Диафрагма</b><div class="value" id="av"></div><input id="ap" type="range" min="0" max="7" value="2"></div>
+<div class="slider"><b>ISO</b><div class="value" id="iv"></div><input id="iso" type="range" min="0" max="8" value="1"></div>
+<button class="cta" onclick="randomCombo()">СЛУЧАЙНАЯ КОМБИНАЦИЯ</button>
+</section>
+
+<section id="evsim"><div class="eyebrow">22 · Тренажёр №2</div><h2>Компенсация экспозиции в голове</h2>
+<p>Попробуй представить: кадр слишком тёмный на 2 стопа. Тебе нужно сохранить движение и глубину резкости.</p>
+<div class="grid">
+<div class="card"><button class="smallbtn" onclick="evAnswer('shutter')">удлинить выдержку на 2 стопа</button></div>
+<div class="card"><button class="smallbtn" onclick="evAnswer('aperture')">открыть диафрагму на 2 стопа</button></div>
+<div class="card"><button class="smallbtn" onclick="evAnswer('iso')">поднять ISO на 2 стопа</button></div>
+<div class="card"><button class="smallbtn" onclick="evAnswer('all')">изменить всё сразу</button></div>
+</div><div id="evResult" class="result">Твоя задача: сохранить исходную выдержку и ГРИП.</div></section>
+
+<section id="menus"><div class="eyebrow">23 · Полное меню</div><h2>Что действительно стоит настроить</h2>
+<details open><summary>AF/MF</summary><p><b>AF Mode:</b> S-AF / C-AF / MF / S-AF+MF / C-AF+TR. <b>Face Priority:</b> для портретов. <b>AF Area:</b> выбирай область. <b>AF Targeting Pad:</b> управление точкой через экран. <b>MF Assist:</b> Magnify / Peaking.</p></details>
+<details><summary>Button/Dial</summary><p>Button Function позволяет назначать функции кнопкам. Это место, где стоит адаптировать камеру под свою руку и workflow.</p></details>
+<details><summary>Release / Drive</summary><p>Одиночная, последовательная, таймер и пользовательские варианты. Для портрета полезна серия, если момент важный. Для штатива можно использовать Anti-Shock.</p></details>
+<details><summary>Disp / PC</summary><p>Настройки отображения, контрольных панелей, информации и подключения к компьютеру.</p></details>
+<details><summary>Exp / p / ISO</summary><p>EV Step, Noise Reduction, Noise Filter, ISO, ISO Step, ISO-Auto Set, ISO-Auto для режимов, Metering, AEL Metering, Bulb/Time Timer, Live Bulb/Live Time.</p></details>
+<details><summary>K / Color / WB</summary><p>Picture Mode, WB, Color Space и параметры цвета.</p></details>
+<details><summary>Record / Erase</summary><p>качество изображения, формат записи, настройки карты, удаление и управление файлами.</p></details>
+<details><summary>Utility</summary><p>уровень, батарея, время, язык, очистка/сервисные функции и другие системные настройки.</p></details>
+<div class="tip">Не меняй 30 пунктов сразу. Сначала настрой RAW, S-AF, AF area, Face Priority, стабилизацию, Auto WB, гистограмму и удобные кнопки. Остальное изучай по мере необходимости.</div>
+</section>
+
+<section id="settings"><div class="eyebrow">24 · Моя рекомендованная база</div><h2>Сделай камеру своей</h2>
+<table>
+<tr><th>Параметр</th><th>Старт</th></tr>
+<tr><td>Mode</td><td>M</td></tr><tr><td>Image Quality</td><td>RAW или RAW+JPEG</td></tr>
+<tr><td>Picture Mode</td><td>Natural</td></tr><tr><td>AF</td><td>S-AF</td></tr><tr><td>AF Area</td><td>небольшая точка/зона</td></tr>
+<tr><td>Face Priority</td><td>ON для портрета</td></tr><tr><td>IS</td><td>ON с рук</td></tr><tr><td>WB</td><td>Auto</td></tr>
+<tr><td>Metering</td><td>ESP</td></tr><tr><td>ISO</td><td>200 старт; поднимать по ситуации</td></tr><tr><td>Noise Filter</td><td>Standard</td></tr>
+<tr><td>Histogram</td><td>ON</td></tr><tr><td>Anti-Shock</td><td>для статичных кадров/штатива</td></tr>
+</table>
+</section>
+
+<section id="workflow"><div class="eyebrow">25 · Workflow</div><h2>Мой алгоритм для тебя</h2>
+<div class="card">
+<p><b>01.</b> Подняла камеру → M.</p><p><b>02.</b> Спросила: объект движется?</p><p><b>03.</b> Выбрала выдержку.</p><p><b>04.</b> Спросила: фон должен быть мягким?</p><p><b>05.</b> Выбрала f.</p><p><b>06.</b> ISO поставила минимальный, при котором кадр нормально экспонируется.</p><p><b>07.</b> Проверила гистограмму/света.</p><p><b>08.</b> Навела фокус на главную деталь.</p><p><b>09.</b> Сделала 2–3 кадра.</p><p><b>10.</b> Проверила резкость на увеличении.</p>
+</div>
+</section>
+
+<section id="mistakes"><div class="eyebrow">26 · Ошибки</div><h2>Почему кадр получился плохим?</h2>
+<table>
+<tr><th>Проблема</th><th>Причина → решение</th></tr>
+<tr><td>Всё смазано</td><td>слишком длинная выдержка → ускорить</td></tr>
+<tr><td>Фон не размыт</td><td>мало расстояния до фона / прикрыта f → открыть f, отодвинуть фон</td></tr>
+<tr><td>Глаз не резкий</td><td>не тот AF target / f слишком открыта → выбрать глаз, сделать серию</td></tr>
+<tr><td>Ночь грязная</td><td>недоэкспонированный RAW + сильное вытягивание теней → экспонировать лучше</td></tr>
+<tr><td>Небо белое</td><td>света выбиты → быстрее выдержка / меньше ISO / экспонировать по светам</td></tr>
+<tr><td>Цвет прыгает</td><td>Auto WB меняется → фиксированный WB или RAW</td></tr>
+<tr><td>Кадры скучные</td><td>проблема не в настройках → искать свет, слой, линию, момент</td></tr>
+</table>
+</section>
+
+<section id="raw"><div class="eyebrow">27 · RAW</div><h2>Что делать после съёмки</h2>
+<div class="grid"><div class="card"><strong>1. Отбор</strong><p>резкость → момент → композиция</p></div><div class="card"><strong>2. Баланс</strong><p>WB → экспозиция → света/тени</p></div><div class="card"><strong>3. Цвет</strong><p>контраст → насыщенность → оттенки</p></div><div class="card"><strong>4. Детали</strong><p>шум → резкость → локальная ретушь</p></div></div>
+<p>Для твоего стиля логика обработки должна быть: сначала правильный свет и цвет, потом кожа/детали, потом художественная стилизация. Не пытайся спасать плохую экспозицию эффектами.</p>
+</section>
+
+<section id="practice"><div class="eyebrow">28 · Практика</div><h2>30 заданий</h2>
+<div id="tasks"><details class="task"><summary>01 · Сними один объект на 1/1000, 1/500, 1/250, 1/60.</summary><p>После съёмки запиши: выдержка / f / ISO / свет / что получилось / что изменишь в следующий раз.</p><label><input type="checkbox" class="task-check"> Выполнено</label></details>
+<details class="task"><summary>02 · Сними портрет на f/1.8, f/2.8, f/4, f/8.</summary><p>После съёмки запиши: выдержка / f / ISO / свет / что получилось / что изменишь в следующий раз.</p><label><input type="checkbox" class="task-check"> Выполнено</label></details>
+<details class="task"><summary>03 · Сделай серию ISO 200 → 6400 в одной сцене.</summary><p>После съёмки запиши: выдержка / f / ISO / свет / что получилось / что изменишь в следующий раз.</p><label><input type="checkbox" class="task-check"> Выполнено</label></details>
+<details class="task"><summary>04 · Сними человека в открытой тени.</summary><p>После съёмки запиши: выдержка / f / ISO / свет / что получилось / что изменишь в следующий раз.</p><label><input type="checkbox" class="task-check"> Выполнено</label></details>
+<details class="task"><summary>05 · Найди контровой свет.</summary><p>После съёмки запиши: выдержка / f / ISO / свет / что получилось / что изменишь в следующий раз.</p><label><input type="checkbox" class="task-check"> Выполнено</label></details>
+<details class="task"><summary>06 · Сними 5 деталей города на 45mm.</summary><p>После съёмки запиши: выдержка / f / ISO / свет / что получилось / что изменишь в следующий раз.</p><label><input type="checkbox" class="task-check"> Выполнено</label></details>
+<details class="task"><summary>07 · Сними один портрет с фоном далеко позади.</summary><p>После съёмки запиши: выдержка / f / ISO / свет / что получилось / что изменишь в следующий раз.</p><label><input type="checkbox" class="task-check"> Выполнено</label></details>
+<details class="task"><summary>08 · Сними один портрет у стены.</summary><p>После съёмки запиши: выдержка / f / ISO / свет / что получилось / что изменишь в следующий раз.</p><label><input type="checkbox" class="task-check"> Выполнено</label></details>
+<details class="task"><summary>09 · Сними человека на 1/1000.</summary><p>После съёмки запиши: выдержка / f / ISO / свет / что получилось / что изменишь в следующий раз.</p><label><input type="checkbox" class="task-check"> Выполнено</label></details>
+<details class="task"><summary>10 · Сними движение на C-AF.</summary><p>После съёмки запиши: выдержка / f / ISO / свет / что получилось / что изменишь в следующий раз.</p><label><input type="checkbox" class="task-check"> Выполнено</label></details>
+<details class="task"><summary>11 · Сними вечерний портрет на ISO 1600.</summary><p>После съёмки запиши: выдержка / f / ISO / свет / что получилось / что изменишь в следующий раз.</p><label><input type="checkbox" class="task-check"> Выполнено</label></details>
+<details class="task"><summary>12 · Сними ночной город с рук.</summary><p>После съёмки запиши: выдержка / f / ISO / свет / что получилось / что изменишь в следующий раз.</p><label><input type="checkbox" class="task-check"> Выполнено</label></details>
+<details class="task"><summary>13 · Сними ночной город с опорой.</summary><p>После съёмки запиши: выдержка / f / ISO / свет / что получилось / что изменишь в следующий раз.</p><label><input type="checkbox" class="task-check"> Выполнено</label></details>
+<details class="task"><summary>14 · Сравни Auto WB и Daylight.</summary><p>После съёмки запиши: выдержка / f / ISO / свет / что получилось / что изменишь в следующий раз.</p><label><input type="checkbox" class="task-check"> Выполнено</label></details>
+<details class="task"><summary>15 · Сделай серию с одинаковым WB.</summary><p>После съёмки запиши: выдержка / f / ISO / свет / что получилось / что изменишь в следующий раз.</p><label><input type="checkbox" class="task-check"> Выполнено</label></details>
+<details class="task"><summary>16 · Сними архитектурные вертикали.</summary><p>После съёмки запиши: выдержка / f / ISO / свет / что получилось / что изменишь в следующий раз.</p><label><input type="checkbox" class="task-check"> Выполнено</label></details>
+<details class="task"><summary>17 · Найди три ведущие линии.</summary><p>После съёмки запиши: выдержка / f / ISO / свет / что получилось / что изменишь в следующий раз.</p><label><input type="checkbox" class="task-check"> Выполнено</label></details>
+<details class="task"><summary>18 · Сделай кадр с негативным пространством.</summary><p>После съёмки запиши: выдержка / f / ISO / свет / что получилось / что изменишь в следующий раз.</p><label><input type="checkbox" class="task-check"> Выполнено</label></details>
+<details class="task"><summary>19 · Сними отражение.</summary><p>После съёмки запиши: выдержка / f / ISO / свет / что получилось / что изменишь в следующий раз.</p><label><input type="checkbox" class="task-check"> Выполнено</label></details>
+<details class="task"><summary>20 · Сними силуэт.</summary><p>После съёмки запиши: выдержка / f / ISO / свет / что получилось / что изменишь в следующий раз.</p><label><input type="checkbox" class="task-check"> Выполнено</label></details>
+<details class="task"><summary>21 · Сними текстуру.</summary><p>После съёмки запиши: выдержка / f / ISO / свет / что получилось / что изменишь в следующий раз.</p><label><input type="checkbox" class="task-check"> Выполнено</label></details>
+<details class="task"><summary>22 · Сними кадр только тенями.</summary><p>После съёмки запиши: выдержка / f / ISO / свет / что получилось / что изменишь в следующий раз.</p><label><input type="checkbox" class="task-check"> Выполнено</label></details>
+<details class="task"><summary>23 · Сними кадр только светом.</summary><p>После съёмки запиши: выдержка / f / ISO / свет / что получилось / что изменишь в следующий раз.</p><label><input type="checkbox" class="task-check"> Выполнено</label></details>
+<details class="task"><summary>24 · Сними человека через передний план.</summary><p>После съёмки запиши: выдержка / f / ISO / свет / что получилось / что изменишь в следующий раз.</p><label><input type="checkbox" class="task-check"> Выполнено</label></details>
+<details class="task"><summary>25 · Сними один сюжет в трёх экспозициях.</summary><p>После съёмки запиши: выдержка / f / ISO / свет / что получилось / что изменишь в следующий раз.</p><label><input type="checkbox" class="task-check"> Выполнено</label></details>
+<details class="task"><summary>26 · Сделай 10 кадров, меняя только выдержку.</summary><p>После съёмки запиши: выдержка / f / ISO / свет / что получилось / что изменишь в следующий раз.</p><label><input type="checkbox" class="task-check"> Выполнено</label></details>
+<details class="task"><summary>27 · Сделай 10 кадров, меняя только диафрагму.</summary><p>После съёмки запиши: выдержка / f / ISO / свет / что получилось / что изменишь в следующий раз.</p><label><input type="checkbox" class="task-check"> Выполнено</label></details>
+<details class="task"><summary>28 · Сделай 10 кадров, меняя только ISO.</summary><p>После съёмки запиши: выдержка / f / ISO / свет / что получилось / что изменишь в следующий раз.</p><label><input type="checkbox" class="task-check"> Выполнено</label></details>
+<details class="task"><summary>29 · Собери свой пресет «Улица».</summary><p>После съёмки запиши: выдержка / f / ISO / свет / что получилось / что изменишь в следующий раз.</p><label><input type="checkbox" class="task-check"> Выполнено</label></details>
+<details class="task"><summary>30 · Собери свой пресет «Ночь».</summary><p>После съёмки запиши: выдержка / f / ISO / свет / что получилось / что изменишь в следующий раз.</p><label><input type="checkbox" class="task-check"> Выполнено</label></details></div>
+</section>
+
+<section id="quiz"><div class="eyebrow">29 · Проверка</div><h2>Ты уже фотограф?</h2>
+<div class="progress"><i id="qProgress"></i></div>
+<div id="quizBox" class="card" style="margin-top:10px"><div class="quiz-static"><div class="quiz-card-static"><div class="badge">ВОПРОС 1/8</div><h3>На портрете человек движется, кадр смазывается. Что менять первым?</h3><button class="quiz-option-static" data-correct="false">ISO</button><button class="quiz-option-static" data-correct="true">Выдержку</button><button class="quiz-option-static" data-correct="false">WB</button><button class="quiz-option-static" data-correct="false">Picture Mode</button><p class="quiz-feedback" aria-live="polite"></p></div><div class="quiz-card-static"><div class="badge">ВОПРОС 2/8</div><h3>Нужен максимально мягкий фон. Что обычно помогает?</h3><button class="quiz-option-static" data-correct="true">f/1.8</button><button class="quiz-option-static" data-correct="false">f/11</button><button class="quiz-option-static" data-correct="false">ISO 100</button><button class="quiz-option-static" data-correct="false">1/4000</button><p class="quiz-feedback" aria-live="polite"></p></div><div class="quiz-card-static"><div class="badge">ВОПРОС 3/8</div><h3>Ночью человек смазывается. Что делать?</h3><button class="quiz-option-static" data-correct="false">Ещё снизить выдержку</button><button class="quiz-option-static" data-correct="true">Увеличить выдержку и при необходимости поднять ISO</button><button class="quiz-option-static" data-correct="false">Снизить ISO</button><button class="quiz-option-static" data-correct="false">Изменить WB</button><p class="quiz-feedback" aria-live="polite"></p></div><div class="quiz-card-static"><div class="badge">ВОПРОС 4/8</div><h3>Что делает стабилизация?</h3><button class="quiz-option-static" data-correct="false">Замораживает человека</button><button class="quiz-option-static" data-correct="true">Компенсирует дрожание камеры</button><button class="quiz-option-static" data-correct="false">Уменьшает ISO</button><button class="quiz-option-static" data-correct="false">Увеличивает диафрагму</button><p class="quiz-feedback" aria-live="polite"></p></div><div class="quiz-card-static"><div class="badge">ВОПРОС 5/8</div><h3>Что означает ISO 3200 по сравнению с ISO 800?</h3><button class="quiz-option-static" data-correct="true">В 4 раза больше чувствительности/усиления</button><button class="quiz-option-static" data-correct="false">В 4 раза меньше</button><button class="quiz-option-static" data-correct="false">Изменение фокусного</button><button class="quiz-option-static" data-correct="false">Изменение WB</button><p class="quiz-feedback" aria-live="polite"></p></div><div class="quiz-card-static"><div class="badge">ВОПРОС 6/8</div><h3>Какой режим AF базовый для спокойного портрета?</h3><button class="quiz-option-static" data-correct="true">S-AF</button><button class="quiz-option-static" data-correct="false">C-AF</button><button class="quiz-option-static" data-correct="false">C-AF+TR всегда</button><button class="quiz-option-static" data-correct="false">Movie AF</button><p class="quiz-feedback" aria-live="polite"></p></div><div class="quiz-card-static"><div class="badge">ВОПРОС 7/8</div><h3>45mm на Micro Four Thirds по углу зрения примерно соответствует чему на 35mm?</h3><button class="quiz-option-static" data-correct="false">24mm</button><button class="quiz-option-static" data-correct="false">35mm</button><button class="quiz-option-static" data-correct="false">50mm</button><button class="quiz-option-static" data-correct="true">90mm</button><p class="quiz-feedback" aria-live="polite"></p></div><div class="quiz-card-static"><div class="badge">ВОПРОС 8/8</div><h3>Для статичного ночного города со штативом что логично?</h3><button class="quiz-option-static" data-correct="false">1/4000 ISO 6400</button><button class="quiz-option-static" data-correct="true">1–10s ISO 200–800</button><button class="quiz-option-static" data-correct="false">1/1000 ISO 3200</button><button class="quiz-option-static" data-correct="false">1/250 ISO 100</button><p class="quiz-feedback" aria-live="polite"></p></div></div></div>
+</section>
+
+<section id="cheat"><div class="eyebrow">30 · Карманная шпаргалка</div><h2>Сохрани в голове</h2>
+<div class="grid">
+<div class="card"><strong>День</strong><p>1/500 · f/2.8 · ISO 200</p></div>
+<div class="card"><strong>Портрет</strong><p>1/250 · f/1.8–2.2 · ISO 200–800</p></div>
+<div class="card"><strong>Вечер</strong><p>1/160 · f/1.8 · ISO 800–1600</p></div>
+<div class="card"><strong>Ночь</strong><p>1/125 · f/1.8 · ISO 1600–6400+</p></div>
+</div>
+<div class="ok"><b>Формула M:</b> движение → выдержка → фон → диафрагма → нехватка света → ISO.</div>
+</section>
+
+<section id="camera-map">
+<div class="eyebrow">01 · КАМЕРА ОТ А ДО Я</div>
+<h2>Каждая кнопка. Каждый диск. Каждая буква.</h2>
+<p class="lead">Это справочник именно для <b>OM-D E-M10 Mark II</b>. Не для «похожей Olympus», не для Mark III и не для E-M10 вообще. Названия и расположение ниже сверены с официальным руководством E-M10 Mark II.</p>
+<div class="warn"><b>Важно:</b> пункты меню могут немного отличаться в зависимости от прошивки и включённых пользовательских настроек. Официальный manual прямо предупреждает, что функции могут меняться после обновлений.</div>
+
+<div class="grid">
+<div class="card"><span class="icon">🎛️</span><h3>Mode Dial</h3><p>Верхний диск выбора режима. Здесь выбирается P/A/S/M, iAUTO, ART, SCN и другие режимы.</p></div>
+<div class="card"><span class="icon">◉</span><h3>Front Dial</h3><p>Передний диск. Его функция зависит от режима и от <b>Dial Function</b>. В M обычно удобно отдать ему диафрагму.</p></div>
+<div class="card"><span class="icon">◉</span><h3>Rear Dial</h3><p>Задний диск. В M обычно удобно использовать для выдержки. В других режимах он меняет параметр, назначенный камерой.</p></div>
+<div class="card"><span class="icon">●</span><h3>Shutter Button</h3><p>Полунажатие запускает фокусировку/замер по текущим настройкам. Полное нажатие делает кадр.</p></div>
+<div class="card"><span class="icon">R</span><h3>R / Movie</h3><p>Кнопка записи видео. Функцию можно менять через <b>Button Function</b>.</p></div>
+<div class="card"><span class="icon">Fn1</span><h3>Fn1</h3><p>Программируемая кнопка. Можно назначить, например, ISO, WB, AF Area, AEL/AFL или другую функцию.</p></div>
+<div class="card"><span class="icon">Fn2</span><h3>Fn2</h3><p>Ещё одна программируемая кнопка. Очень полезно отдать её под ISO или быстрое переключение режима.</p></div>
+<div class="card"><span class="icon">Fn3</span><h3>Fn3</h3><p>Программируемая кнопка на корпусе. Назначение зависит от твоей конфигурации.</p></div>
+<div class="card"><span class="icon">Q</span><h3>Q</h3><p>Открывает выбранную панель управления. Через <b>K Control Settings</b> можно выбрать, какие панели доступны.</p></div>
+<div class="card"><span class="icon">INFO</span><h3>INFO</h3><p>Переключает варианты отображения информации. Очень важная кнопка для гистограммы, уровня и контроля экспозиции.</p></div>
+<div class="card"><span class="icon">MENU</span><h3>MENU</h3><p>Открывает меню камеры. Здесь живут глубокие настройки, которые не обязательно видны в панели Q.</p></div>
+<div class="card"><span class="icon">LV</span><h3>u / LV</h3><p>Переключает работу через экран и электронный видоискатель.</p></div>
+<div class="card"><span class="icon">q</span><h3>Playback</h3><p>Просмотр фотографий и видео. Диск и стрелки используются для навигации и увеличения.</p></div>
+<div class="card"><span class="icon">⌫</span><h3>Erase</h3><p>Удаление кадров. Можно отдельно настроить поведение удаления RAW+JPEG.</p></div>
+<div class="card"><span class="icon">⌖</span><h3>Arrow Pad</h3><p>Перемещение по меню и управление точкой AF. В некоторых режимах стрелки также вызывают быстрые параметры.</p></div>
+<div class="card"><span class="icon">☼</span><h3>Built-in Flash</h3><p>Встроенная вспышка. Параметры синхронизации и компенсации вспышки находятся в меню и панели управления.</p></div>
+</div>
+
+<h3>Разъёмы и служебные элементы</h3>
+<details><summary>Hot Shoe</summary><p>Крепление для совместимой внешней вспышки и аксессуаров.</p></details>
+<details><summary>HDMI Type D</summary><p>Вывод изображения на телевизор/дисплей. В меню можно выбрать формат HDMI и управление по HDMI.</p></details>
+<details><summary>Multi-connector</summary><p>Используется для USB-подключения и совместимых аксессуаров.</p></details>
+<details><summary>Battery/Card compartment</summary><p>Отсек BLS-50 и SD-карты. Перед извлечением карты или батареи камеру следует выключить.</p></details>
+<details><summary>Diopter adjustment</summary><p>Настраивает резкость изображения именно в электронном видоискателе под твой глаз. Это не меняет фокус фотографии.</p></details>
+<details><summary>Eye sensor</summary><p>Определяет приближение глаза к EVF и может автоматически переключать отображение.</p></details>
+
+<h3>Что я рекомендую назначить тебе</h3>
+<table>
+<tr><th>Кнопка</th><th>Рекомендация</th><th>Зачем</th></tr>
+<tr><td>Fn1</td><td><b>ISO</b></td><td>ISO приходится менять постоянно, особенно в M.</td></tr>
+<tr><td>Fn2</td><td><b>AF Area</b> или Face Priority</td><td>Быстро переключать способ фокусировки.</td></tr>
+<tr><td>Fn3</td><td><b>AEL/AFL</b> или Peaking</td><td>Полезно при портретах и ручной фокусировке.</td></tr>
+<tr><td>Front Dial</td><td><b>Диафрагма</b></td><td>ГРИП и рисунок фона под большим пальцем.</td></tr>
+<tr><td>Rear Dial</td><td><b>Выдержка</b></td><td>Быстро контролировать смаз и движение.</td></tr>
+</table>
+<div class="tip"><b>Главная идея:</b> не нужно запоминать все кнопки. Твоя рабочая связка может быть очень простой: <b>передний диск = f, задний = выдержка, Fn1 = ISO, Q = быстрые настройки, INFO = контроль кадра</b>.</div>
+</section>
+
+<section id="modes-full">
+<div class="eyebrow">02 · РЕЖИМЫ</div>
+<h2>Что делает каждый режим</h2>
+<p>У E-M10 II режимы не равны «уровням сложности». Это разные способы распределить работу между тобой и камерой.</p>
+<details open><summary>M · Manual</summary><p><b>Ты управляешь:</b> выдержкой и диафрагмой. ISO задаётся отдельно. Это лучший режим для обучения экспозиции и для повторяемого результата.</p><p><b>Тебе:</b> основной режим для портретов, street, ночи и контролируемого света.</p></details>
+<details><summary>A · Aperture Priority</summary><p>Ты выбираешь диафрагму, камера подбирает выдержку. Идеален, когда главным является глубина резкости.</p><p><b>Тебе:</b> быстрые портреты и прогулочная съёмка.</p></details>
+<details><summary>S · Shutter Priority</summary><p>Ты задаёшь выдержку, камера подбирает диафрагму. Полезен, когда главное заморозить движение или намеренно получить смаз.</p></details>
+<details><summary>P · Program</summary><p>Камера выбирает выдержку и диафрагму, а ты можешь вмешиваться в параметры и компенсацию экспозиции.</p></details>
+<details><summary>iAUTO</summary><p>Камера максимально берёт принятие решений на себя. Хорош для быстрого кадра, но плох как основной режим обучения M.</p></details>
+<details><summary>SCN · Scene</summary><p>Набор сюжетных программ. E-M10 II имеет 25 режимов SCN. Они автоматизируют настройки под тип сцены.</p></details>
+<details><summary>ART · Art Filters</summary><p>14 художественных фильтров. Это не «цветокоррекция RAW», а творческая обработка, применяемая камерой.</p></details>
+<details><summary>PHOTO STORY</summary><p>Создаёт композиции из нескольких кадров по шаблонам. Для обычной фотографии тебе, скорее всего, не понадобится.</p></details>
+<details><summary>Movie / n</summary><p>Отдельный режим видеосъёмки. У него есть свои параметры изображения, звука, эффектов и записи.</p></details>
+</section>
+
+<section id="screen-full">
+<div class="eyebrow">03 · ЧТО ТЫ ВИДИШЬ НА ЭКРАНЕ</div>
+<h2>Не пугайся цифр</h2>
+<p>Если на экране одновременно появляются десятки обозначений, камера не сломалась. Она просто решила рассказать тебе слишком много.</p>
+<div class="card">
+<table>
+<tr><th>Обозначение</th><th>Что означает</th><th>Твоя реакция</th></tr>
+<tr><td>1/250</td><td>Выдержка</td><td>Движение / смаз / количество света</td></tr>
+<tr><td>F2.0</td><td>Диафрагма</td><td>Свет + глубина резкости</td></tr>
+<tr><td>ISO 800</td><td>Чувствительность/усиление</td><td>Компенсация нехватки света ценой шума</td></tr>
+<tr><td>±0.0</td><td>Экспокоррекция</td><td>Сдвиг яркости относительно замера</td></tr>
+<tr><td>S-IS</td><td>Стабилизация</td><td>Компенсация дрожания камеры</td></tr>
+<tr><td>WB AUTO</td><td>Баланс белого</td><td>Температура/оттенок света</td></tr>
+<tr><td>S-AF / C-AF / MF</td><td>Режим фокусировки</td><td>Выбор под движение и способ фокусировки</td></tr>
+<tr><td>4:3</td><td>Соотношение сторон</td><td>Форма кадра</td></tr>
+<tr><td>L / M / S</td><td>Размер JPEG</td><td>Разрешение изображения</td></tr>
+<tr><td>RAW</td><td>Сырой файл сенсора</td><td>Для серьёзной обработки</td></tr>
+</table>
+</div>
+<h3>INFO: твоя кнопка «покажи мне правду»</h3>
+<p>Через INFO можно переключать варианты информации при съёмке. В пользовательском меню можно добавить гистограмму, Highlight & Shadow, сетку и другие экраны. Это особенно полезно в M.</p>
+<div class="ok"><b>Для тебя:</b> оставь включёнными <b>гистограмму + Highlight/Shadow + Level Gauge + сетку</b>. Тогда камера будет не просто делать фотографию, а показывать тебе, где ты ошиблась.</div>
+</section>
+
+<section id="full-menus">
+<div class="eyebrow">04 · ПОЛНОЕ МЕНЮ</div>
+<h2>Карта меню E-M10 II</h2>
+<p>Ниже не просто список названий. Это карта: <b>что делает пункт → нужно ли тебе его трогать → какая настройка разумна для твоей съёмки</b>.</p>
+
+<h3>📁 Shooting Menu 1</h3>
+<details><summary>Card Setup</summary><p>Форматирование карты и удаление всех кадров. <b>Для тебя:</b> форматируй карту в камере после резервного копирования, а не удаляй тысячи файлов по одному.</p></details>
+<details><summary>Reset / Myset</summary><p><b>Reset</b> возвращает настройки к выбранным значениям по умолчанию. <b>Myset</b> позволяет сохранить любимую конфигурацию.</p><p><b>Совет:</b> создай Myset «PORTRAIT» и «NIGHT».</p></details>
+<details><summary>Picture Mode</summary><p>Определяет характер JPEG: цвет, контраст, резкость, градацию и т.д. Для RAW влияние ограничено встроенным JPEG-превью.</p></details>
+<details><summary>Image Aspect</summary><p>Выбирает соотношение сторон кадра. Базовый вариант сенсора: 4:3. Для обучения рекомендую оставить 4:3 и кадрировать позже.</p></details>
+<details><summary>Digital Tele-converter</summary><p>Цифровое увеличение. Оно не создаёт дополнительную оптическую детализацию. <b>Для тебя:</b> обычно OFF, если нет конкретной причины использовать.</p></details>
+
+<h3>📁 Shooting Menu 2</h3>
+<details><summary>j/Y · Drive / Self-timer</summary><p>Покадровая, серийная съёмка и таймер. Для портрета можно использовать self-timer, если камера на опоре.</p></details>
+<details><summary>Image Stabilizer</summary><p>Настройка стабилизации матрицы. Стабилизация компенсирует движение камеры, но не замораживает движущегося человека.</p></details>
+<details><summary>Bracketing</summary><p>Камера снимает серию с изменением выбранного параметра. Полезно для экспозиции и творческих экспериментов.</p></details>
+<details><summary>HDR</summary><p>Создаёт серию с разной экспозицией для расширения динамического диапазона. Лучше для относительно статичных сцен.</p></details>
+<details><summary>Multiple Exposure</summary><p>До двух кадров можно объединить в одну фотографию. Используй как творческий инструмент.</p></details>
+<details><summary>Keystone Compensation</summary><p>Корректирует перспективу прямо в камере. Особенно полезно для архитектуры, когда вертикали сходятся.</p></details>
+<details><summary>Time Lapse</summary><p>Интервальная съёмка. В E-M10 II можно задать до 999 кадров и интервал от 1 секунды до 24 часов; камера также поддерживает Time Lapse Movie.</p></details>
+<details><summary>Anti-Shock z</summary><p>Снижает вибрацию от механики затвора за счёт задержки между нажатием и экспонированием.</p><p><b>Тебе:</b> полезно на штативе для архитектуры, ночи и длинных выдержек.</p></details>
+<details><summary>Silent ♥</summary><p>Электронный затвор без обычного звука механического затвора. Полезен там, где тишина важна. Учитывай возможные артефакты при некоторых источниках света и быстром движении.</p></details>
+<details><summary>RC Mode</summary><p>Беспроводное управление совместимой внешней вспышкой.</p></details>
+
+<h3>📁 Playback Menu</h3>
+<details><summary>RAW Data Edit / JPEG Edit</summary><p>Встроенное редактирование изображений. Для серьёзной обработки лучше сохранить RAW и работать в Camera Raw/Lightroom/Photoshop.</p></details>
+<details><summary>Image Overlay</summary><p>Наложение изображений. Полезно для творческих композиций.</p></details>
+<details><summary>Share Order</summary><p>Помечает кадры для передачи на смартфон.</p></details>
+<details><summary>Audio Recording</summary><p>Можно добавить к фотографии голосовую заметку до 30 секунд.</p></details>
+
+<h3>📁 Setup Menu</h3>
+<details><summary>X · Date/Time</summary><p>Настрой часы камеры. Правильная дата важна для сортировки файлов.</p></details>
+<details><summary>W · Language</summary><p>Язык интерфейса.</p></details>
+<details><summary>i · Monitor</summary><p>Яркость и цветовая температура экрана. Не путай яркость экрана с экспозицией фотографии.</p></details>
+<details><summary>Rec View</summary><p>Сколько времени после кадра показывать снимок. Для активной съёмки рекомендую короткое значение или Off.</p></details>
+<details><summary>Wi-Fi Settings</summary><p>Подключение камеры к смартфону для передачи изображений и удалённой съёмки.</p></details>
+<details><summary>c Menu Display</summary><p>Показывать ли Custom Menu. Если пользовательское меню исчезло, ищи эту настройку.</p></details>
+<details><summary>Firmware</summary><p>Показывает версию прошивки. Перед обновлением обязательно заряди батарею и следуй официальной процедуре.</p></details>
+
+<h3>⚙️ Custom Menu R · AF/MF</h3>
+<div class="card">
+<table><tr><th>Пункт</th><th>Что делает</th><th>Моя рекомендация</th></tr>
+<tr><td>AF Mode</td><td>S-AF, C-AF и другие варианты фокусировки</td><td>S-AF для спокойных сцен, C-AF для движения</td></tr>
+<tr><td>Full-time AF</td><td>Камера продолжает фокусироваться без полунажатия</td><td>OFF, чтобы не расходовать батарею и не заставлять AF искать фокус</td></tr>
+<tr><td>AEL/AFL</td><td>Распределяет фокус и блокировку экспозиции между кнопками</td><td>Оставить стандартно, пока не понадобится back-button focus</td></tr>
+<tr><td>Reset Lens</td><td>Сбрасывать ли положение фокуса при выключении</td><td>ON для простоты</td></tr>
+<tr><td>Bulb/Time Focusing</td><td>Можно ли менять фокус во время Bulb/Time</td><td>OFF обычно безопаснее</td></tr>
+<tr><td>Focus Ring</td><td>Направление кольца фокуса</td><td>Как тебе интуитивнее</td></tr>
+<tr><td>MF Assist</td><td>Автоматическое увеличение/peaking при ручной фокусировке</td><td>ON</td></tr>
+<tr><td>Set Home</td><td>Домашняя точка AF</td><td>Полезно, если часто возвращаешься к одной точке</td></tr>
+<tr><td>AF Illuminat.</td><td>Подсветка для помощи AF</td><td>OFF, если раздражает людей или не нужна</td></tr>
+<tr><td>Face Priority</td><td>Приоритет лиц/глаз</td><td>ON для портретов</td></tr>
+<tr><td>AF Targeting Pad</td><td>Тачпад для перемещения AF-точки при съёмке через EVF</td><td>ON</td></tr>
+</table>
+</div>
+
+<h3>⚙️ Custom Menu S · Button/Dial</h3>
+<details><summary>Button Function</summary><p>Назначение функций кнопкам. Это место, где камера превращается из «как задумал Olympus» в «как удобно тебе».</p></details>
+<details><summary>Dial Function</summary><p>Назначение переднего и заднего дисков. Для M рекомендую <b>front = aperture, rear = shutter</b>, если такое распределение тебе физически удобно.</p></details>
+<details><summary>Dial Direction</summary><p>Меняет направление вращения дисков для выдержки/диафрагмы. Если мозг каждый раз кричит «не туда!», меняй это.</p></details>
+<details><summary>Mode Dial Function</summary><p>Позволяет назначать сохранённые Myset на положения диска.</p></details>
+
+<h3>⚙️ Custom Menu T · Release/j</h3>
+<details><summary>Rls Priority S / C</summary><p>Разрешает ли камера сделать снимок, когда фокус не подтверждён. Для новичка безопаснее OFF, чтобы камера чаще ждала фокус.</p></details>
+<details><summary>j L/H fps и Silent fps</summary><p>Скорость серийной съёмки. Чем выше скорость, тем быстрее заполняется буфер и карта.</p></details>
+<details><summary>Image Stabilizer / Continuous IS</summary><p>Отдельные настройки стабилизации для разных сценариев и серийной съёмки.</p></details>
+<details><summary>Half Way Rls With IS</summary><p>Включает/выключает работу IS при полунажатии.</p></details>
+<details><summary>Lens I.S. Priority</summary><p>Если установлен объектив со своей стабилизацией, можно дать приоритет стабилизатору объектива.</p></details>
+<details><summary>Release Lag-Time</summary><p>Сокращает задержку срабатывания. Используй осознанно: настройка повышает энергопотребление.</p></details>
+
+<h3>⚙️ Custom Menu U · Disp/8/PC</h3>
+<details><summary>HDMI / Video Out</summary><p>Настройки вывода на телевизор. Для обычной фотографии можно не трогать.</p></details>
+<details><summary>K Control Settings</summary><p>Выбирает, какие панели управления доступны в P/A/S/M, ART и SCN: Live Control, LV Super Control Panel, Live Guide и т.д.</p><p><b>Для тебя:</b> обязательно включить <b>LV Super Control Panel</b>.</p></details>
+<details><summary>G/Info Settings</summary><p>Определяет, что появляется при нажатии INFO во время съёмки и просмотра.</p></details>
+<details><summary>Displayed Grid</summary><p>Сетка композиции. Для тебя рекомендую включить сетку с линиями, которые помогают держать архитектуру и горизонт.</p></details>
+<details><summary>Histogram Settings</summary><p>Определяет границы Highlight и Shadow. Полезно для контроля пересветов и провалов.</p></details>
+<details><summary>Mode Guide</summary><p>Подсказки при смене режима. Можно оставить ON в начале обучения.</p></details>
+<details><summary>Live View Boost</summary><p>Позволяет видеть сцену в тёмных условиях даже если реальная экспозиция очень тёмная. Особенно полезно для Bulb/Time и Live Composite. Не путай его с реальной яркостью будущего кадра.</p></details>
+<details><summary>Frame Rate</summary><p>High уменьшает задержку изображения, но может снизить качество отображения.</p></details>
+<details><summary>Art LV Mode</summary><p>Определяет, когда эффект Art Filter отображается на Live View.</p></details>
+<details><summary>Flicker reduction</summary><p>Помогает уменьшать влияние мерцания некоторых источников света. При необходимости можно выбрать 50/60 Hz в соответствии с электросетью региона.</p></details>
+<details><summary>LV Close Up Mode</summary><p>Управляет поведением увеличения Live View при полунажатии затвора.</p></details>
+<details><summary>Peaking Settings</summary><p>Настраивает цвет и интенсивность Focus Peaking.</p></details>
+<details><summary>Backlit LCD / Sleep / Auto Power Off</summary><p>Управление энергосбережением. Для длительной съёмки лучше не держать экран постоянно включённым.</p></details>
+<details><summary>8 Beep Sound</summary><p>Можно выключить звук подтверждения фокусировки.</p></details>
+<details><summary>USB Mode</summary><p>Определяет режим USB-подключения.</p></details>
+<details><summary>Multi Function Settings</summary><p>Выбирает функции для многофункционального режима.</p></details>
+<details><summary>Menu Recall</summary><p>Запоминает последнее положение курсора в меню. Очень удобно, если часто работаешь с одним пунктом.</p></details>
+
+<h3>⚙️ Custom Menu V · Exp/p/ISO</h3>
+<div class="card">
+<table><tr><th>Пункт</th><th>Что делает</th><th>Для тебя</th></tr>
+<tr><td>EV Step</td><td>Шаг изменения экспозиционных параметров</td><td>Оставь стандартный шаг, пока не появится причина менять</td></tr>
+<tr><td>Noise Reduct.</td><td>Шумоподавление длинных выдержек</td><td>Auto</td></tr>
+<tr><td>Noise Filter</td><td>Шумоподавление при высоком ISO</td><td>Standard</td></tr>
+<tr><td>ISO Set / ISO Step</td><td>Диапазон и шаг ISO</td><td>Оставь доступным Auto + 200–6400 для старта</td></tr>
+<tr><td>ISO-Auto Set</td><td>Верхний предел и базовое ISO для Auto</td><td>Настрой верхний предел осознанно</td></tr>
+<tr><td>ISO-Auto</td><td>В каких режимах доступен Auto ISO</td><td><b>All</b>, если хочешь Auto ISO и в M</td></tr>
+<tr><td>Metering</td><td>Способ замера света</td><td>ESP как базовый</td></tr>
+<tr><td>AEL Metering</td><td>Какой замер использовать при AE Lock</td><td>Auto</td></tr>
+<tr><td>Bulb/Time Timer</td><td>Максимальная выдержка Bulb/Time</td><td>Не увеличивай без необходимости</td></tr>
+<tr><td>Live Bulb / Live Time</td><td>Частота обновления предпросмотра</td><td>Оставь рабочее значение, экспериментируй ночью</td></tr>
+<tr><td>Composite Settings</td><td>Опорное время экспозиции для Live Composite</td><td>Подбирай под сцену</td></tr>
+</table>
+<div class="warn"><b>Очень важный пункт:</b> в официальном manual указано, что при <b>ISO-Auto = P/A/S</b> Auto ISO недоступно в M, а при <b>All</b> Auto ISO доступно во всех режимах. Это особенно важно для твоего рабочего M-пресета.</div>
+</div>
+
+<h3>⚙️ Custom Menu W · # Custom</h3>
+<details><summary># X-Sync</summary><p>Выдержка синхронизации вспышки.</p></details>
+<details><summary># Slow Limit</summary><p>Самая длинная выдержка, которую камера может выбрать при работе со вспышкой в соответствующих режимах.</p></details>
+<details><summary>w+F</summary><p>Определяет, будет ли экспокоррекция также влиять на компенсацию вспышки.</p></details>
+
+<h3>⚙️ Custom Menu X · K/Color/WB</h3>
+<details><summary>K Set</summary><p>Комбинации размера JPEG и степени сжатия.</p></details>
+<details><summary>Pixel Count</summary><p>Количество пикселей для средних и малых размеров JPEG.</p></details>
+<details><summary>Shading Comp.</summary><p>Коррекция периферийного затемнения, если поддерживается объективом.</p></details>
+<details><summary>WB</summary><p>Баланс белого и его тонкая коррекция.</p></details>
+<details><summary>All &gt; All Set / All Reset</summary><p>Применение/сброс компенсации WB для разных режимов.</p></details>
+<details><summary>W Keep Warm Color</summary><p>Управляет сохранением тёплых оттенков при лампах накаливания.</p></details>
+<details><summary># +WB</summary><p>Коррекция WB для вспышки.</p></details>
+<details><summary>Color Space</summary><p>sRGB или Adobe RGB. Для обычного цифрового workflow и соцсетей оставляй sRGB.</p></details>
+
+<h3>⚙️ Custom Menu Y · Record/Erase</h3>
+<details><summary>Quick Erase</summary><p>Удалять ли кадр сразу после нажатия Delete без дополнительного подтверждения.</p></details>
+<details><summary>RAW+JPEG Erase</summary><p>При одиночном удалении можно выбрать удаление JPEG, RAW или обоих.</p></details>
+<details><summary>File Name / Edit Filename</summary><p>Управление нумерацией и частью имени файла.</p></details>
+<details><summary>Copyright Settings</summary><p>Можно записывать имя фотографа и правообладателя в EXIF новых кадров.</p></details>
+
+<h3>⚙️ Custom Menu Z · Movie</h3>
+<details><summary>n Mode</summary><p>Режим записи видео.</p></details>
+<details><summary>Movie R / Recording Volume</summary><p>Запись звука и уровень встроенного микрофона.</p></details>
+<details><summary>Volume Limiter / Wind Noise Reduction</summary><p>Ограничение громкости и снижение ветра.</p></details>
+<details><summary>Time Code Settings</summary><p>Настройки таймкода для видео.</p></details>
+<details><summary>Movie Specification Settings</summary><p>Сохранённые наборы размера/сжатия видео.</p></details>
+<details><summary>Movie Effect / Movie+Photo Mode</summary><p>Эффекты и поведение фотоснимка во время видеозаписи.</p></details>
+
+<h3>⚙️ Custom Menu b · Built-In EVF</h3>
+<details><summary>Built-in EVF Style</summary><p>Style 1/2 показывают основные параметры; Style 3 ближе к отображению монитора.</p></details>
+<details><summary>Info Settings / Displayed Grid</summary><p>Какая информация и сетка показываются в видоискателе.</p></details>
+<details><summary>EVF Auto Switch</summary><p>Автоматически ли включать EVF при приближении глаза.</p></details>
+<details><summary>EVF Adjust</summary><p>Яркость и оттенок видоискателя.</p></details>
+<details><summary>Half Way Level</summary><p>Показывать ли электронный уровень при полунажатии.</p></details>
+<details><summary>S-OVF</summary><p>Режим отображения, похожий на оптический видоискатель. Он не отображает эффект WB, экспокоррекции и Picture Mode так же, как обычный Live View.</p></details>
+
+<h3>⚙️ Custom Menu k · K Utility</h3>
+<details><summary>Pixel Mapping</summary><p>Проверка/коррекция функций сенсора и обработки. Не запускай без причины.</p></details>
+<details><summary>Exposure Shift</summary><p>Систематическая корректировка экспозиции отдельно для каждого метода замера. Это продвинутая настройка. Новичку не трогать.</p></details>
+<details><summary>Warning Level</summary><p>Уровень батареи, при котором появляется предупреждение.</p></details>
+<details><summary>Level Adjust</summary><p>Калибровка электронного уровня.</p></details>
+<details><summary>Touch Screen Settings</summary><p>Включение/выключение сенсорного экрана.</p></details>
+<details><summary>Quick Sleep Mode</summary><p>Более агрессивное энергосбережение. Полезно для долгой прогулки, но не всегда удобно в активной съёмке.</p></details>
+</section>
+
+<section id="presets">
+<div class="eyebrow">05 · МОИ НАСТРОЙКИ</div>
+<h2>Готовые пресеты для E-M10 II + 45mm F1.8</h2>
+<p>Это не «магические цифры». Это стартовые точки. Свет меняется, поэтому сначала ставь пресет, потом смотри на гистограмму/зебру? На этой камере вместо зебры используй гистограмму и Highlight/Shadow, и корректируй.</p>
+<div class="grid">
+<div class="card"><h3>👩 Портрет</h3><p><b>M · 1/250 · f/1.8–2.8 · Auto ISO</b><br>S-AF · Face Priority ON · Auto WB · S-IS AUTO</p><p class="muted">Если человек активно двигается: 1/320–1/500.</p></div>
+<div class="card"><h3>🏙 Street</h3><p><b>M · 1/500 · f/4 · Auto ISO</b><br>S-AF или C-AF · Auto WB</p><p class="muted">На ярком солнце можно ISO 200 и подстроить f.</p></div>
+<div class="card"><h3>🌅 Golden Hour</h3><p><b>M · 1/250 · f/1.8–2.8 · ISO 200–800</b><br>Face Priority при портрете</p><p class="muted">Контровой свет любит экспокоррекцию. Следи, чтобы кожа не стала слишком тёмной.</p></div>
+<div class="card"><h3>🌊 Кипрское солнце</h3><p><b>M · 1/500 · f/4–5.6 · ISO 200</b><br>Auto WB · S-IS AUTO</p><p class="muted">Следи за бликами воды и светлыми стенами. Highlight & Shadow здесь особенно полезны.</p></div>
+<div class="card"><h3>🌥 Пасмурно</h3><p><b>M · 1/250 · f/2–2.8 · ISO 200–800</b></p><p class="muted">Свет мягкий, поэтому портреты часто получаются очень приятными даже без дополнительного света.</p></div>
+<div class="card"><h3>🌃 Ночной портрет</h3><p><b>M · 1/160–1/250 · f/1.8 · ISO 800–6400</b><br>S-AF · Face Priority</p><p class="muted">Не опускай выдержку слишком низко, если человек движется.</p></div>
+<div class="card"><h3>🏛 Архитектура</h3><p><b>M · 1/125–1/500 · f/5.6–8 · ISO 200</b><br>S-AF/MF · grid + level</p><p class="muted">При сложной перспективе попробуй Keystone Compensation.</p></div>
+<div class="card"><h3>🏠 Интерьер</h3><p><b>M · 1/80–1/160 · f/1.8–2.8 · ISO 400–1600</b></p><p class="muted">45mm эквивалентен примерно 90mm по углу зрения, поэтому это скорее объектив для фрагментов интерьера, деталей и портретов, чем для очень маленькой комнаты.</p></div>
+<div class="card"><h3>🐕 Животное</h3><p><b>M · 1/500–1/1000 · f/2–2.8 · Auto ISO</b><br>C-AF · серийная съёмка</p><p class="muted">Главный параметр здесь не ISO, а достаточная выдержка.</p></div>
+<div class="card"><h3>🏃 Движение</h3><p><b>M · 1/1000 · f/2.8 · Auto ISO</b><br>C-AF</p><p class="muted">Если света мало, ISO растёт. Это лучше, чем получить смазанный кадр.</p></div>
+<div class="card"><h3>🌌 Звёзды</h3><p><b>M · 10–20s · f/1.8 · ISO 1600–6400</b><br>MF + Magnify/Peaking · штатив</p><p class="muted">Точный результат зависит от неба, фокусного и количества света вокруг.</p></div>
+<div class="card"><h3>✨ Live Composite</h3><p><b>M · штатив · ISO 200–800</b><br>MF · Live Composite</p><p class="muted">Начни с короткого базового времени и наблюдай, как свет добавляется к кадру.</p></div>
+</div>
+<div class="ok"><b>Мой совет:</b> сохрани два Myset: <b>MYSET 1 = PORTRAIT</b> и <b>MYSET 2 = NIGHT</b>. Тогда камера превращается в две кнопки «я уже знаю, что делать».</div>
+</section>
+
+<section id="setup-wizard">
+<div class="eyebrow">06 · ПЕРВАЯ НАСТРОЙКА</div>
+<h2>Как я бы настроила твою E-M10 II</h2>
+<ol>
+<li><b>Mode Dial → M.</b></li>
+<li><b>Custom Menu → U → K Control Settings → включить LV Super Control Panel.</b></li>
+<li><b>Custom Menu → U → G/Info Settings → включить Histogram и Highlight/Shadow.</b></li>
+<li><b>Custom Menu → U → Displayed Grid → включить сетку.</b></li>
+<li><b>Custom Menu → R → Face Priority → ON.</b></li>
+<li><b>Custom Menu → R → AF Targeting Pad → ON.</b></li>
+<li><b>Custom Menu → R → MF Assist → ON.</b></li>
+<li><b>Custom Menu → V → ISO-Auto → All</b>, если хочешь Auto ISO в M.</li>
+<li><b>Custom Menu → V → ISO-Auto Set</b>: начальный предел Auto ISO 6400.</li>
+<li><b>Custom Menu → T → Image Stabilizer → AUTO/соответствующий режим.</b></li>
+<li><b>RAW+JPEG</b> для периода обучения и проверки JPEG-превью; позже можно перейти на RAW, если workflow уже устоялся.</li>
+<li><b>Fn1 → ISO</b>, <b>Fn2 → AF Area</b>, а диски настроить под f и выдержку.</li>
+</ol>
+<div class="warn"><b>Проверка после настройки:</b> открой M → ISO Auto → наведи на светлую и тёмную сцену → убедись, что ISO действительно меняется. Если стоит ISO 200 и не двигается, проверь <b>ISO-Auto</b> в Custom Menu V.</div>
+</section>
+
+
+<section><div class="eyebrow">31 · Финал</div><h2>Что ты должна уметь после гайда</h2>
+<div class="card"><p>☐ объяснить выдержку, f и ISO</p><p>☐ собрать экспозицию в M</p><p>☐ быстро настроить E-M10 II</p><p>☐ выбрать S-AF/C-AF/MF</p><p>☐ снять портрет на 45mm</p><p>☐ снять улицу днём</p><p>☐ снять человека вечером</p><p>☐ снять ночной город</p><p>☐ понять причину смаза</p><p>☐ понять причину шума</p><p>☐ прочитать гистограмму</p><p>☐ снять RAW для дальнейшей обработки</p></div></section>
+
+<div class="footer">OLYMPUS M MODE · E-M10 Mark II + M.Zuiko 45mm F1.8<br>Технические характеристики сверены с официальными материалами OM SYSTEM. Практические значения являются стартовыми, а не догмой.</div>
+</div>
+
+<script>
+/* Explicit element references: do not rely on browser-created global IDs. */
+const sceneCard = document.getElementById("sceneCard");
+const sh = document.getElementById("sh");
+const ap = document.getElementById("ap");
+const iso = document.getElementById("iso");
+const sv = document.getElementById("sv");
+const av = document.getElementById("av");
+const iv = document.getElementById("iv");
+const simRead = document.getElementById("simRead");
+const simExplain = document.getElementById("simExplain");
+const tasks = document.getElementById("tasks");
+const quizBox = document.getElementById("quizBox");
+const qProgress = document.getElementById("qProgress");
+
+function go(id){document.getElementById(id).scrollIntoView({behavior:"smooth"})}
+
+/* Scene presets */
+const scenes={
+street:["Улица · день","M","1/500","f/2.8","ISO 200–800","S-AF","Auto WB","Начни с 1/500. Если человек быстро движется, переходи к 1/1000. В жёстком солнце можно открыть/прикрыть f по задаче."],
+portrait:["Портрет · день","M","1/250","f/1.8–2.2","ISO 200–800","S-AF + Face/Eye","Auto WB","Главное: глаз в фокусе. Если фон слишком резкий, увеличь расстояние до него."],
+golden:["Золотой час","M","1/250","f/1.8–2.8","ISO 200–800","S-AF","Auto/Daylight","Ищи контровой свет, края солнца, отражения и тёплые поверхности."],
+blue:["Синий час","M","1/160","f/1.8–2.8","ISO 800–1600","S-AF","Auto","Следи за небом. Снимай сразу после заката, когда город ещё имеет цвет."],
+night:["Ночь · человек","M","1/125–1/250","f/1.8","ISO 1600–6400+","S-AF/C-AF","Auto","Не опускай выдержку только ради ISO 800, если человек движется."],
+architecture:["Архитектура","M","1/125–1/500","f/5.6–8","ISO 200","S-AF/MF","Daylight/Auto","Следи за вертикалями. 45mm здесь особенно хорош для деталей."],
+motion:["Движение","M","1/1000","f/2–2.8","ISO 400–1600","C-AF","Auto","Серийная съёмка повышает шанс поймать удачную фазу движения."],
+indoors:["Интерьер","M","1/80–1/160","f/1.8–2.8","ISO 400–1600","S-AF","Auto","45mm может быть тесным. Ищи детали, портреты и фрагменты пространства."]
+};
+function scenePreset(k,btn){
+document.querySelectorAll(".chips button").forEach(b=>b.classList.remove("active"));btn.classList.add("active");
+let d=scenes[k];sceneCard.innerHTML=`<h3>${d[0]}</h3><table><tr><th>Режим</th><td>${d[1]}</td></tr><tr><th>Выдержка</th><td>${d[2]}</td></tr><tr><th>Диафрагма</th><td>${d[3]}</td></tr><tr><th>ISO</th><td>${d[4]}</td></tr><tr><th>Фокус</th><td>${d[5]}</td></tr><tr><th>WB</th><td>${d[6]}</td></tr></table><p>${d[7]}</p>`;
+}
+scenePreset("street",document.querySelector(".chips button"));
+
+/* Simulator */
+const SH=["1/4000","1/2000","1/1000","1/500","1/250","1/125","1/60","1/30","1/15","1/8","1/4","1/2"];
+const AP=["f/1.8","f/2","f/2.8","f/4","f/5.6","f/8","f/11","f/16"];
+const ISO=[100,200,400,800,1600,3200,6400,12800,25600];
+function simUpdate(){
+let s=+sh.value,a=+ap.value,i=+iso.value;
+sv.textContent=SH[s];av.textContent=AP[a];iv.textContent=ISO[i];simRead.textContent=`${SH[s]} · ${AP[a]} · ISO ${ISO[i]}`;
+let sc=document.getElementById("simScene");
+sc.style.setProperty("--motion",Math.max(0,(s-4)*1.4)+"px");
+sc.style.setProperty("--sunblur",Math.max(0,(7-a)*.45)+"px");
+let darkness=Math.min(.52,Math.max(0,(1-i)*.045+(s<3?.03:0)));sc.style.setProperty("--dark",darkness);
+let t=s<=2?"Очень короткая выдержка: движение замораживается, но света мало.":s>=8?"Медленная выдержка: возможен смаз движения.":"Средняя выдержка: хороший старт для спокойной сцены.";
+t+=a<=1?" Открытая диафрагма: много света и мягкий фон.":a>=5?" Прикрытая диафрагма: больше глубины резкости.":"Средняя диафрагма: баланс света и глубины.";
+if(i>=5)t+=" Высокое ISO: следи за шумом и недоэкспонированием.";
+simExplain.textContent=t;
+}
+[sh,ap,iso].forEach(x=>x.addEventListener("input",simUpdate));simUpdate();
+function randomCombo(){sh.value=Math.floor(Math.random()*12);ap.value=Math.floor(Math.random()*7);iso.value=Math.floor(Math.random()*8);simUpdate()}
+
+/* EV trainer */
+function evAnswer(x){
+let r=document.getElementById("evResult");
+if(x==="iso"){r.innerHTML="<b>Верно.</b> +2 стопа ISO сохраняют исходную выдержку и диафрагму. Именно это нужно, если движение и ГРИП нельзя менять.";}
+else{r.innerHTML="<b>Не лучший выбор.</b> Если задача сохранить и движение, и глубину резкости, меняй ISO. Выдержка и диафрагма изменят характер изображения.";}
+}
+
+/* Tasks */
+const taskNames=[
+"Сними один объект на 1/1000, 1/500, 1/250, 1/60.",
+"Сними портрет на f/1.8, f/2.8, f/4, f/8.",
+"Сделай серию ISO 200 → 6400 в одной сцене.",
+"Сними человека в открытой тени.",
+"Найди контровой свет.",
+"Сними 5 деталей города на 45mm.",
+"Сними один портрет с фоном далеко позади.",
+"Сними один портрет у стены.",
+"Сними человека на 1/1000.",
+"Сними движение на C-AF.",
+"Сними вечерний портрет на ISO 1600.",
+"Сними ночной город с рук.",
+"Сними ночной город с опорой.",
+"Сравни Auto WB и Daylight.",
+"Сделай серию с одинаковым WB.",
+"Сними архитектурные вертикали.",
+"Найди три ведущие линии.",
+"Сделай кадр с негативным пространством.",
+"Сними отражение.",
+"Сними силуэт.",
+"Сними текстуру.",
+"Сними кадр только тенями.",
+"Сними кадр только светом.",
+"Сними человека через передний план.",
+"Сними один сюжет в трёх экспозициях.",
+"Сделай 10 кадров, меняя только выдержку.",
+"Сделай 10 кадров, меняя только диафрагму.",
+"Сделай 10 кадров, меняя только ISO.",
+"Собери свой пресет «Улица».",
+"Собери свой пресет «Ночь»."
+];
+if(!tasks.children.length){tasks.innerHTML=taskNames.map((x,i)=>`<details><summary>${String(i+1).padStart(2,"0")} · ${x}</summary><p>После съёмки запиши: выдержка / f / ISO / свет / что получилось / что изменишь в следующий раз.</p></details>`).join("");}
+
+/* Quiz */
+const quiz=[
+["На портрете человек движется, кадр смазывается. Что менять первым?",["ISO","Выдержку","WB","Picture Mode"],1],
+["Нужен максимально мягкий фон. Что обычно помогает?",["f/1.8","f/11","ISO 100","1/4000"],0],
+["Ночью человек смазывается. Что делать?",["Ещё снизить выдержку","Увеличить выдержку и при необходимости поднять ISO","Снизить ISO","Изменить WB"],1],
+["Что делает стабилизация?",["Замораживает человека","Компенсирует дрожание камеры","Уменьшает ISO","Увеличивает диафрагму"],1],
+["Что означает ISO 3200 по сравнению с ISO 800?",["В 4 раза больше чувствительности/усиления","В 4 раза меньше","Изменение фокусного","Изменение WB"],0],
+["Какой режим AF базовый для спокойного портрета?",["S-AF","C-AF","C-AF+TR всегда","Movie AF"],0],
+["45mm на Micro Four Thirds по углу зрения примерно соответствует чему на 35mm?",["24mm","35mm","50mm","90mm"],3],
+["Для статичного ночного города со штативом что логично?",["1/4000 ISO 6400","1–10s ISO 200–800","1/1000 ISO 3200","1/250 ISO 100"],1]
+];
+let qi=0,score=0;
+function renderQuiz(){
+if(qi>=quiz.length){quizBox.innerHTML=`<h3>Готово 🎉</h3><p>Результат: <b>${score}/${quiz.length}</b>.</p><p>${score>=7?"Ты уже начинаешь мыслить параметрами, а не случайными цифрами.":"Пройди разделы M, экспозиции и сцены ещё раз, затем повтори тест."}</p><button class="cta" onclick="qi=0;score=0;renderQuiz()">ПРОЙТИ ЕЩЁ РАЗ</button>`;qProgress.style.width="100%";return}
+let q=quiz[qi];qProgress.style.width=(qi/quiz.length*100)+"%";
+quizBox.innerHTML=`<div class="badge">ВОПРОС ${qi+1}/${quiz.length}</div><h3>${q[0]}</h3>${q[1].map((o,i)=>`<button class="quiz-option" onclick="answer(${i})">${o}</button>`).join("")}<p class="muted">Выбери один вариант.</p>`;
+}
+function answer(i){
+let q=quiz[qi],opts=document.querySelectorAll(".quiz-option");opts.forEach((b,j)=>{if(j===q[2])b.classList.add("correct");if(j===i&&i!==q[2])b.classList.add("wrong")});
+if(i===q[2])score++;setTimeout(()=>{qi++;renderQuiz()},650);
+}
+if(!quizBox.querySelector(".quiz-static")){renderQuiz();}
+
+// Static quiz fallback: works even if dynamic quiz rendering is unavailable.
+quizBox.querySelectorAll(".quiz-option-static").forEach(btn=>btn.addEventListener("click",()=>{
+  const card=btn.closest(".quiz-card-static");
+  const feedback=card.querySelector(".quiz-feedback");
+  card.querySelectorAll(".quiz-option-static").forEach(b=>b.disabled=true);
+  if(btn.dataset.correct==="true"){btn.classList.add("correct");feedback.textContent="Верно ✓";}
+  else {btn.classList.add("wrong"); const correct=card.querySelector("[data-correct=\"true\"]"); if(correct) correct.classList.add("correct"); feedback.textContent="Не совсем. Правильный ответ подсвечен.";}
+}));
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('./service-worker.js').catch(()=>{}));
+}
+</script>
+
+<script>
+/* Persistent practice progress */
+document.addEventListener("DOMContentLoaded",()=>{
+  document.querySelectorAll("#tasks details").forEach((d,i)=>{
+    const key="olympus-task-"+i;
+    const s=d.querySelector("summary");
+    if(!s) return;
+    const cb=document.createElement("input");
+    cb.type="checkbox"; cb.className="task-check"; cb.checked=localStorage.getItem(key)==="1";
+    cb.addEventListener("click",e=>e.stopPropagation());
+    cb.addEventListener("change",()=>localStorage.setItem(key,cb.checked?"1":"0"));
+    s.prepend(cb);
+  });
+});
+</script>
+
+</body>
+</html>
